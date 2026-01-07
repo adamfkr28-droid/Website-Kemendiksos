@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transparansi Dana | Kemendiksos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="bg-blue-900 sticky top-0 w-full z-50 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-inner text-blue-900 font-bold text-xs">BEM</div>
+                <span class="font-bold tracking-tight text-lg italic">Kemendiksos</span>
+            </a>
+            <a href="index.html" class="text-xs font-bold uppercase tracking-widest hover:text-blue-200 transition">← Kembali ke Utama</a>
+        </div>
+    </nav>
+
+    <div class="bg-white border-b border-slate-200 pt-16 pb-12 px-6">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 uppercase">Laporan Transparansi</h1>
+            <p class="text-slate-500 max-w-xl mx-auto italic">Wujud pertanggungjawaban publik atas penyaluran donasi dan bantuan sosial Kabinet Arunikarya.</p>
+        </div>
+    </div>
+
+    <main class="container mx-auto mt-12 mb-32 px-6">
+        <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 overflow-hidden border border-slate-200">
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr class="text-slate-400 text-[10px] uppercase tracking-[0.2em] bg-slate-50 border-b border-slate-100">
+                            <th class="px-8 py-6 text-left font-bold">Tanggal</th>
+                            <th class="px-8 py-6 text-left font-bold">Nama Program / Kegiatan</th>
+                            <th class="px-8 py-6 text-left font-bold">Total Dana</th>
+                            <th class="px-8 py-6 text-center font-bold">Status Penyaluran</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabel-donasi" class="divide-y divide-slate-100">
+                        </tbody>
+                </table>
+            </div>
+            <div id="empty-state" class="hidden py-20 text-center text-slate-400 italic">Belum ada data laporan tersedia.</div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-950 text-slate-500 py-10 text-center text-sm">
+        <p>© 2026 Kemendiksos BEM ITB Swadharma</p>
+    </footer>
+
+    <script>
+        const storedData = localStorage.getItem('dataDonasi');
+        const tabel = document.getElementById('tabel-donasi');
+        const emptyState = document.getElementById('empty-state');
+
+        if (!storedData || JSON.parse(storedData).length === 0) {
+            emptyState.classList.remove('hidden');
+        } else {
+            const dataDonasi = JSON.parse(storedData).reverse();
+            dataDonasi.forEach(item => {
+                let statusColor = "";
+                if(item.status === "Tersalurkan") statusColor = "bg-emerald-100 text-emerald-700";
+                else if(item.status === "Selesai") statusColor = "bg-blue-100 text-blue-700";
+                else statusColor = "bg-amber-100 text-amber-700";
+
+                const dateObj = new Date(item.tanggal);
+                const options = { day: 'numeric', month: 'short', year: 'numeric' };
+                const formattedDate = dateObj.toLocaleDateString('id-ID', options);
+
+                tabel.innerHTML += `
+                    <tr class="hover:bg-blue-50/30 transition-all">
+                        <td class="px-8 py-6 text-sm text-slate-400 font-medium">
+                            <span class="flex items-center gap-2">${formattedDate}</span>
+                        </td>
+                        <td class="px-8 py-6 text-sm font-bold text-slate-800 uppercase">${item.kegiatan}</td>
+                        <td class="px-8 py-6 text-sm text-slate-600 font-mono font-bold">${item.jumlah}</td>
+                        <td class="px-8 py-6 text-center">
+                            <span class="px-4 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest ${statusColor}">${item.status}</span>
+                        </td>
+                    </tr>`;
+            });
+        }
+    </script>
+</body>
+</html>

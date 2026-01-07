@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Kemendiksos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-6">
+
+    <div id="login-section" class="max-w-md w-full bg-white p-10 rounded-[2.5rem] shadow-2xl border border-slate-200">
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center shadow-lg mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900">Admin Login</h2>
+            <p class="text-slate-500 text-sm mt-1">Khusus Pengurus Kemendiksos</p>
+        </div>
+        
+        <form id="form-login" class="space-y-4">
+            <input type="text" id="username" placeholder="Username" class="w-full p-4 border border-slate-200 rounded-2xl outline-none focus:border-blue-500 bg-slate-50 transition" required>
+            <input type="password" id="password" placeholder="Password" class="w-full p-4 border border-slate-200 rounded-2xl outline-none focus:border-blue-500 bg-slate-50 transition" required>
+            <button type="submit" class="w-full bg-slate-900 text-white font-bold py-4 rounded-2xl hover:bg-black transition shadow-lg">Masuk Panel</button>
+        </form>
+    </div>
+
+    <div id="admin-panel" class="hidden max-w-2xl w-full">
+        <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-slate-200">
+            <div class="flex justify-between items-start mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-900">Input Data Donasi</h2>
+                    <p class="text-slate-500 mt-2">Update laporan bantuan sosial Anda.</p>
+                </div>
+                <button onclick="logout()" class="text-xs bg-red-50 text-red-500 px-4 py-2 rounded-lg font-bold hover:bg-red-100 transition shadow-sm">LOGOUT</button>
+            </div>
+            
+            <form id="form-donasi" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Nama Program / Kegiatan</label>
+                    <input type="text" id="kegiatan" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-100 outline-none transition" placeholder="Contoh: Santunan Anak Yatim" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Tanggal Penyaluran</label>
+                    <input type="date" id="tanggal" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-100 outline-none transition bg-slate-50" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Total Dana (Rupiah)</label>
+                    <input type="text" id="jumlah" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-100 outline-none transition" placeholder="Contoh: Rp 5.000.000" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Status Penyaluran</label>
+                    <select id="status" class="w-full p-4 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-blue-100 outline-none transition bg-white cursor-pointer">
+                        <option value="Proses">Dalam Proses</option>
+                        <option value="Selesai">Selesai (Internal)</option>
+                        <option value="Tersalurkan">Sudah Tersalurkan (Publik)</option>
+                    </select>
+                </div>
+
+                <div class="pt-4 flex flex-col gap-3">
+                    <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl hover:bg-blue-700 shadow-xl shadow-blue-200 transition active:scale-95">Simpan ke Dashboard</button>
+                    <button type="button" onclick="hapusSemua()" class="w-full bg-red-50 text-red-600 font-semibold py-4 rounded-2xl hover:bg-red-100 transition border border-red-100">Reset Seluruh Data</button>
+                </div>
+            </form>
+            <div class="mt-10 pt-6 border-t border-slate-100 flex justify-center">
+                <a href="index.html" class="text-blue-600 font-bold hover:gap-3 transition-all">← Lihat Website Publik</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loginSection = document.getElementById('login-section');
+        const adminPanel = document.getElementById('admin-panel');
+        const loginForm = document.getElementById('form-login');
+
+        // LOGIKA LOGIN (Username: Diksos2425 | Pass: Arunikarya)
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            if(user === "Diksos2425" && pass === "Arunikarya") {
+                loginSection.classList.add('hidden');
+                adminPanel.classList.remove('hidden');
+                sessionStorage.setItem('isAdmin', 'true');
+            } else {
+                alert('Username atau Password salah!');
+            }
+        });
+
+        if(sessionStorage.getItem('isAdmin') === 'true') {
+            loginSection.classList.add('hidden');
+            adminPanel.classList.remove('hidden');
+        }
+
+        function logout() {
+            sessionStorage.removeItem('isAdmin');
+            location.reload();
+        }
+
+        // LOGIKA INPUT DATA
+        const formDonasi = document.getElementById('form-donasi');
+        formDonasi.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Mengambil value dari input termasuk tanggal
+            const dataBaru = {
+                kegiatan: document.getElementById('kegiatan').value,
+                tanggal: document.getElementById('tanggal').value, // Properti baru
+                jumlah: document.getElementById('jumlah').value,
+                status: document.getElementById('status').value
+            };
+
+            let listDonasi = JSON.parse(localStorage.getItem('dataDonasi')) || [];
+            listDonasi.push(dataBaru);
+            localStorage.setItem('dataDonasi', JSON.stringify(listDonasi));
+            
+            alert('🎉 Sukses! Data kegiatan tanggal ' + dataBaru.tanggal + ' telah ditambahkan.');
+            formDonasi.reset();
+        });
+
+        function hapusSemua() {
+            if(confirm('Hapus semua data donasi?')) {
+                localStorage.removeItem('dataDonasi');
+                alert('Data dibersihkan.');
+            }
+        }
+    </script>
+</body>
+</html>

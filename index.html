@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kemendiksos | BEM ITB Swadharma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-nav { background: rgba(30, 58, 138, 0.9); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <nav class="glass-nav fixed w-full z-50 text-white shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-inner">
+                    <span class="text-blue-900 font-bold text-xs">BEM</span>
+                </div>
+                <span class="font-bold tracking-tight text-lg">Kemendiksos</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#staff" class="hover:text-blue-200 transition">Struktur</a>
+                <a href="transparansi.html" class="hover:text-blue-200 transition">Transparansi Dana</a>
+                <a href="admin.html" class="bg-blue-600 hover:bg-blue-500 px-5 py-2 rounded-full transition shadow-lg text-xs font-bold uppercase tracking-wider">Admin Panel</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-40 pb-24 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white px-6">
+        <div class="container mx-auto text-center">
+            <span class="bg-blue-700/50 px-4 py-1 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase mb-4 inline-block border border-blue-400/30">Kabinet Arunikarya</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">Nyalakan Pelitamu & <br><span class="text-blue-300 italic">Rajut Bakti Sosial</span></h1>
+            <p class="text-blue-100 max-w-2xl mx-auto text-lg font-light opacity-90">"Transformasi pendidikan dan pengabdian masyarakat melalui kolaborasi strategis yang inklusif, solutif, dan berkelanjutan."</p>
+        </div>
+    </header>
+
+    <section id="staff" class="container mx-auto mt-24 px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-slate-800 tracking-tight uppercase">Struktur</h2>
+            <div class="h-1.5 w-12 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto mb-12">
+            <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 text-center hover:shadow-xl transition">
+                <div class="w-32 h-32 mx-auto mb-6 rounded-3xl overflow-hidden border-4 border-white shadow-md">
+                    <img src="https://lh3.googleusercontent.com/d/1dJ7bl9TryJHE1njI-Emm5TFK7oW2FrL7" class="w-full h-full object-cover" alt="Adam Fikra">
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 uppercase">Adam Fikra Muchlis</h3>
+                <p class="text-blue-600 font-bold text-[10px] uppercase tracking-widest mt-1">Kepala Menteri</p>
+            </div>
+            <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100 text-center hover:shadow-xl transition">
+                <div class="w-32 h-32 mx-auto mb-6 rounded-3xl overflow-hidden border-4 border-white shadow-md">
+                    <img src="https://lh3.googleusercontent.com/d/1H-VCrbpQU5-KvleFTNORkE6tGJ521TsN" class="w-full h-full object-cover" alt="Olivia Andini">
+                </div>
+                <h3 class="font-bold text-lg text-slate-800 uppercase">Olivia Andini</h3>
+                <p class="text-slate-500 font-bold text-[10px] uppercase tracking-widest mt-1">Wakil Menteri</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 flex items-center gap-6 hover:shadow-lg transition">
+                <div class="w-24 h-24 flex-shrink-0 overflow-hidden rounded-2xl border-2 border-white shadow-sm">
+                    <img src="https://lh3.googleusercontent.com/d/1uHDzw577_KKnY620PcS5_00N9Resvaag" class="w-full h-full object-cover" alt="Alya Jenni">
+                </div>
+                <div>
+                    <p class="text-emerald-600 font-bold text-[10px] uppercase mb-1">Direktorat Lingkungan</p>
+                    <h3 class="font-bold text-lg text-slate-800 uppercase">Alya Jenni</h3>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 flex items-center gap-6 hover:shadow-lg transition">
+                <div class="w-24 h-24 flex-shrink-0 overflow-hidden rounded-2xl border-2 border-white shadow-sm">
+                    <img src="https://lh3.googleusercontent.com/d/1UI_m2uIIyq3ecHS435EpNoE4E9KvgPPJ" class="w-full h-full object-cover" alt="Azzahra Balqis">
+                </div>
+                <div>
+                    <p class="text-blue-600 font-bold text-[10px] uppercase mb-1">Direktorat Pendidikan</p>
+                    <h3 class="font-bold text-lg text-slate-800 uppercase">Azzahra Balqis</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mx-auto mt-24 mb-32 px-6">
+        <div class="bg-white border border-slate-200 rounded-[3rem] p-12 text-center shadow-2xl shadow-slate-200/50">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4 uppercase tracking-tight">Laporan Pertanggungjawaban</h2>
+            <p class="text-slate-500 mb-8 max-w-md mx-auto italic">Klik tombol di bawah untuk melihat transparansi penyaluran dana donasi secara lengkap.</p>
+            <a href="transparansi.html" class="inline-flex items-center gap-3 bg-slate-900 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-600 transition shadow-xl active:scale-95">
+                Buka Transparansi Dana
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 text-slate-500 py-12 text-center text-sm border-t border-slate-900">
+        <p class="opacity-60 italic">© 2026 Kemendiksos BEM ITB Swadharma. Kabinet Arunikarya.</p>
+    </footer>
+
+</body>
+</html>
