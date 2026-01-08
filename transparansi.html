@@ -22,29 +22,49 @@
 
     <div class="bg-white border-b border-slate-200 pt-16 pb-12 px-6">
         <div class="container mx-auto text-center">
-            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 uppercase">Laporan Transparansi</h1>
-            <p class="text-slate-500 max-w-xl mx-auto italic">Wujud pertanggungjawaban publik atas penyaluran donasi dan bantuan sosial Kabinet Arunikarya.</p>
+            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 uppercase tracking-tighter">Laporan Transparansi</h1>
+            <p class="text-slate-500 max-w-xl mx-auto italic font-light">Akses publik untuk memantau penyaluran donasi dan bukti dokumentasi sosial Kabinet Arunikarya.</p>
         </div>
     </div>
 
     <main class="container mx-auto mt-12 mb-32 px-6">
-        <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 overflow-hidden border border-slate-200">
-            <div class="overflow-x-auto">
-                <table class="min-w-full">
-                    <thead>
-                        <tr class="text-slate-400 text-[10px] uppercase tracking-[0.2em] bg-slate-50 border-b border-slate-100">
-                            <th class="px-8 py-6 text-left font-bold">Tanggal</th>
-                            <th class="px-8 py-6 text-left font-bold">Nama Program / Kegiatan</th>
-                            <th class="px-8 py-6 text-left font-bold">Total Dana</th>
-                            <th class="px-8 py-6 text-center font-bold">Status Penyaluran</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabel-donasi" class="divide-y divide-slate-100">
-                        </tbody>
-                </table>
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            
+            <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-200 p-10 text-center flex flex-col justify-between">
+                <div>
+                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-800 mb-2">Rekapitulasi Dana</h2>
+                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Data lengkap pemasukan dan penyaluran donasi dalam format Excel.</p>
+                </div>
+
+                <a id="btn-download" href="#" class="inline-flex items-center justify-center w-full px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg transition-all transform hover:-translate-y-1">
+                    Unduh XLSX
+                </a>
             </div>
-            <div id="empty-state" class="hidden py-20 text-center text-slate-400 italic">Belum ada data laporan tersedia.</div>
+
+            <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-200 p-10 text-center flex flex-col justify-between">
+                <div>
+                    <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold text-slate-800 mb-2">Dokumentasi Sosial</h2>
+                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Arsip foto-foto penyerahan bantuan langsung di lapangan.</p>
+                </div>
+
+                <a href="https://drive.google.com/drive/folders/1mkLrynqxX_dnXrc8DQaDKqEOpUTF_Pqg?usp=sharing" target="_blank" class="inline-flex items-center justify-center w-full px-6 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-lg transition-all transform hover:-translate-y-1">
+                    Lihat Galeri Foto
+                </a>
+            </div>
+
         </div>
+
+        <p class="text-center mt-12 text-[10px] text-slate-400 uppercase tracking-[0.2em] font-bold">Transparansi Tanpa Batas • Kabinet Arunikarya</p>
     </main>
 
     <footer class="bg-slate-950 text-slate-500 py-10 text-center text-sm">
@@ -52,37 +72,9 @@
     </footer>
 
     <script>
-        const storedData = localStorage.getItem('dataDonasi');
-        const tabel = document.getElementById('tabel-donasi');
-        const emptyState = document.getElementById('empty-state');
-
-        if (!storedData || JSON.parse(storedData).length === 0) {
-            emptyState.classList.remove('hidden');
-        } else {
-            const dataDonasi = JSON.parse(storedData).reverse();
-            dataDonasi.forEach(item => {
-                let statusColor = "";
-                if(item.status === "Tersalurkan") statusColor = "bg-emerald-100 text-emerald-700";
-                else if(item.status === "Selesai") statusColor = "bg-blue-100 text-blue-700";
-                else statusColor = "bg-amber-100 text-amber-700";
-
-                const dateObj = new Date(item.tanggal);
-                const options = { day: 'numeric', month: 'short', year: 'numeric' };
-                const formattedDate = dateObj.toLocaleDateString('id-ID', options);
-
-                tabel.innerHTML += `
-                    <tr class="hover:bg-blue-50/30 transition-all">
-                        <td class="px-8 py-6 text-sm text-slate-400 font-medium">
-                            <span class="flex items-center gap-2">${formattedDate}</span>
-                        </td>
-                        <td class="px-8 py-6 text-sm font-bold text-slate-800 uppercase">${item.kegiatan}</td>
-                        <td class="px-8 py-6 text-sm text-slate-600 font-mono font-bold">${item.jumlah}</td>
-                        <td class="px-8 py-6 text-center">
-                            <span class="px-4 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest ${statusColor}">${item.status}</span>
-                        </td>
-                    </tr>`;
-            });
-        }
+        const SHEET_ID = '1FovwasmUqHEyTtnylCr7dDqZ5ctoLZonVvHRQRmOKCs';
+        const DOWNLOAD_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=xlsx`;
+        document.getElementById('btn-download').href = DOWNLOAD_URL;
     </script>
 </body>
 </html>
