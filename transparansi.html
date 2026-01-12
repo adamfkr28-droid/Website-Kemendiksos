@@ -3,72 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transparansi Dana | Kemendiksos</title>
+    <title>Transparansi | Arunikarya</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; }</style>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aruni-teal': '#0f766e',
+                        'aruni-gold': '#fbbf24',
+                        'aruni-red': '#e11d48',
+                        'aruni-dark': '#042f2e',
+                    },
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav { background: rgba(4, 47, 46, 0.9); backdrop-filter: blur(15px); }
+        .liquid-header {
+            background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .blob {
+            position: absolute;
+            background: rgba(251, 191, 36, 0.1);
+            filter: blur(60px);
+            border-radius: 50%;
+            z-index: 1;
+            animation: pulse 8s infinite alternate;
+        }
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 0.5; }
+            to { transform: scale(1.2); opacity: 0.8; }
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-[#fcfdfd] text-slate-900 font-sans">
 
-    <nav class="bg-blue-900 sticky top-0 w-full z-50 text-white shadow-lg">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-inner text-blue-900 font-bold text-xs">BEM</div>
-                <span class="font-bold tracking-tight text-lg italic">Kemendiksos</span>
+    <nav class="glass-nav fixed w-full z-[100] text-white border-b border-white/10">
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 flex-shrink-0">
+                    <svg class="w-full h-full" viewBox="0 0 100 100" fill="none">
+                        <circle cx="50" cy="50" r="48" stroke="#fbbf24" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="42" fill="#0f766e"/>
+                        <path d="M35 65C35 55 42 50 50 50C58 50 65 55 65 65V70H35V65Z" fill="#e11d48"/>
+                        <circle cx="50" cy="38" r="12" fill="#fbbf24"/>
+                    </svg>
+                </div>
+                <span class="font-black tracking-tighter text-lg uppercase">KEMENDIKSOS</span>
             </a>
-            <a href="index.html" class="text-xs font-bold uppercase tracking-widest hover:text-blue-200 transition">← Kembali ke Utama</a>
+            <a href="index.html" class="text-[10px] font-black uppercase tracking-[0.2em] bg-white/10 hover:bg-aruni-gold hover:text-aruni-dark px-4 py-2 rounded-lg transition-all">
+                ← Kembali
+            </a>
         </div>
     </nav>
 
-    <div class="bg-white border-b border-slate-200 pt-16 pb-12 px-6">
-        <div class="container mx-auto text-center">
-            <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-4 uppercase tracking-tighter">Laporan Transparansi</h1>
-            <p class="text-slate-500 max-w-xl mx-auto italic font-light">Akses publik untuk memantau penyaluran donasi dan bukti dokumentasi sosial Kabinet Arunikarya.</p>
+    <header class="liquid-header pt-32 pb-20 md:pt-48 md:pb-32 px-6 text-white text-center">
+        <div class="blob w-64 h-64 -top-10 -right-10"></div>
+        <div class="container mx-auto relative z-10">
+            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tighter uppercase">Laporan Transparansi</h1>
+            <p class="text-aruni-gold/80 max-w-2xl mx-auto text-sm md:text-lg italic font-light">
+                "Wujud komitmen terhadap akuntabilitas dan profesionalitas organisasi."
+            </p>
         </div>
-    </div>
+    </header>
 
-    <main class="container mx-auto mt-12 mb-32 px-6">
-        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+    <main class="container mx-auto -mt-10 md:-mt-16 px-4 md:px-6 relative z-20 mb-32">
+        <div class="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
             
-            <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-200 p-10 text-center flex flex-col justify-between">
+            <div class="group bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-100 p-8 md:p-12 text-center flex flex-col justify-between transition-transform hover:-translate-y-2">
                 <div>
-                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <div class="w-20 h-20 bg-aruni-teal/5 text-aruni-teal rounded-3xl flex items-center justify-center mx-auto mb-8 transition-colors group-hover:bg-aruni-teal group-hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </div>
-                    <h2 class="text-xl font-bold text-slate-800 mb-2">Rekapitulasi Dana</h2>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Data lengkap pemasukan dan penyaluran donasi dalam format Excel.</p>
+                    <h2 class="text-2xl font-black text-aruni-dark mb-4 uppercase tracking-tight">Rekapitulasi Dana</h2>
+                    <p class="text-slate-500 text-sm mb-10 leading-relaxed">
+                        Dokumen Data Donasi Bakti Sosial & Bukti Penyaluran Dana <b>Excel (.xlsx)</b>.
+                    </p>
                 </div>
 
-                <a id="btn-download" href="#" class="inline-flex items-center justify-center w-full px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg transition-all transform hover:-translate-y-1">
-                    Unduh XLSX
+                <a id="btn-download" href="#" class="inline-flex items-center justify-center w-full px-8 py-5 bg-aruni-teal text-white font-black text-xs tracking-widest uppercase rounded-2xl shadow-lg shadow-aruni-teal/20 hover:bg-aruni-dark transition-all">
+                    Unduh Data_Donasi XLSX
                 </a>
             </div>
 
-            <div class="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-200 p-10 text-center flex flex-col justify-between">
+            <div class="group bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-100 p-8 md:p-12 text-center flex flex-col justify-between transition-transform hover:-translate-y-2">
                 <div>
-                    <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <div class="w-20 h-20 bg-aruni-red/5 text-aruni-red rounded-3xl flex items-center justify-center mx-auto mb-8 transition-colors group-hover:bg-aruni-red group-hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h2 class="text-xl font-bold text-slate-800 mb-2">Dokumentasi Sosial</h2>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Arsip foto-foto penyerahan bantuan langsung di lapangan.</p>
+                    <h2 class="text-2xl font-black text-aruni-dark mb-4 uppercase tracking-tight">Dokumentasi Penyaluran</h2>
+                    <p class="text-slate-500 text-sm mb-10 leading-relaxed">
+                        Arsip digital berupa foto sebagai bukti nyata penyaluran bantuan sosial di lapangan.
+                    </p>
                 </div>
 
-                <a href="https://drive.google.com/drive/folders/1mkLrynqxX_dnXrc8DQaDKqEOpUTF_Pqg?usp=sharing" target="_blank" class="inline-flex items-center justify-center w-full px-6 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-2xl shadow-lg transition-all transform hover:-translate-y-1">
-                    Lihat Galeri Foto
+                <a href="https://drive.google.com/drive/folders/1mkLrynqxX_dnXrc8DQaDKqEOpUTF_Pqg?usp=sharing" target="_blank" class="inline-flex items-center justify-center w-full px-8 py-5 bg-aruni-gold text-aruni-dark font-black text-xs tracking-widest uppercase rounded-2xl shadow-lg shadow-aruni-gold/20 hover:scale-[1.02] transition-all">
+                    Buka Dokumentasi
                 </a>
             </div>
 
         </div>
 
-        <p class="text-center mt-12 text-[10px] text-slate-400 uppercase tracking-[0.2em] font-bold">Transparansi Tanpa Batas • Kabinet Arunikarya</p>
+        <div class="mt-20 text-center">
+            <div class="inline-block p-1 px-4 rounded-full border border-slate-200 bg-white text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">
+                Transparansi Bakti Sosial
+            </div>
+        </div>
     </main>
 
-    <footer class="bg-slate-950 text-slate-500 py-10 text-center text-sm">
-        <p>© 2026 Kemendiksos BEM ITB Swadharma</p>
+    <footer class="bg-aruni-dark text-white py-12 text-center">
+        <div class="container mx-auto px-6">
+            <p class="font-black tracking-widest text-lg mb-2 uppercase">ARUNIKARYA 2026</p>
+            <p class="text-aruni-gold/60 text-[9px] font-bold uppercase tracking-[0.4em]">BEM ITB Swadharma</p>
+        </div>
     </footer>
 
     <script>
