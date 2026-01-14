@@ -18,27 +18,25 @@
                     },
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
                     animation: {
-                        'spin-slow': 'spin 8s linear infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 12s linear infinite',
                     }
                 }
             }
         }
     </script>
     <style>
-        .glass-nav { background: rgba(4, 47, 46, 0.9); backdrop-filter: blur(15px); }
+        .glass-nav { background: rgba(4, 47, 46, 0.95); backdrop-filter: blur(15px); }
         .liquid-header {
             background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%);
             position: relative;
             overflow: hidden;
         }
         .logo-glow {
-            box-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
-            border: 2px solid rgba(251, 191, 36, 0.5);
+            box-shadow: 0 0 35px rgba(251, 191, 36, 0.3);
         }
         .ring-rotate {
-            border: 2px dashed #fbbf24;
-            animation: spin 10s linear infinite;
+            border: 2px dashed rgba(251, 191, 36, 0.5);
+            animation: spin 15s linear infinite;
         }
         .blob {
             position: absolute;
@@ -52,69 +50,68 @@
 <body class="bg-[#fcfdfd] text-slate-900 overflow-x-hidden font-sans">
 
     <nav class="glass-nav fixed w-full z-[100] text-white border-b border-white/10">
-        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-4 group">
-                <div class="relative w-10 h-10">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 group">
+                <div class="relative w-10 h-10 flex-shrink-0">
                     <div class="absolute inset-0 ring-rotate rounded-full"></div>
-                    <img src="https://lh3.googleusercontent.com/d/10iqK_C7AjflQrBhHQWCoAbPT3jpoAeod" 
-                         class="w-full h-full object-cover rounded-full border border-aruni-gold p-0.5 bg-aruni-dark" alt="Logo">
+                    <img src="https://lh3.googleusercontent.com/d/189L65t9T2Aq-v1stZNgbeh7VuL8ULb26" 
+                         class="w-full h-full object-contain rounded-full p-0.5 bg-aruni-dark border border-aruni-gold/30" alt="Logo">
                 </div>
-                <div class="hidden sm:block">
-                    <span class="font-black tracking-tighter text-lg block leading-none uppercase">KEMENDIKSOS</span>
-                    <span class="text-[8px] text-aruni-gold font-bold uppercase tracking-[0.2em]">BEM ITB Swadharma</span>
+                <div class="block">
+                    <span class="font-black tracking-tighter text-sm md:text-lg block leading-none uppercase">KEMENDIKSOS</span>
+                    <span class="text-[7px] md:text-[8px] text-aruni-gold font-bold uppercase tracking-[0.1em] block leading-tight">BEM ITB Swadharma</span>
                 </div>
             </div>
 
+            <button class="md:hidden p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-aruni-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            
             <div class="hidden md:flex items-center space-x-8 text-[10px] font-black uppercase tracking-widest">
                 <a href="#staff" class="hover:text-aruni-gold transition-colors">Struktur</a>
                 <a href="transparansi.html" class="hover:text-aruni-gold transition-colors">Transparansi</a>
                 <a href="admin.html" class="bg-aruni-gold text-aruni-dark px-6 py-3 rounded-xl shadow-lg hover:scale-105 active:scale-95 transition">Admin Panel</a>
             </div>
-
-            <button class="md:hidden p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
         </div>
         
         <div id="mobile-menu" class="hidden md:hidden bg-aruni-dark border-t border-white/10 p-4 space-y-4 text-center font-bold text-xs tracking-widest uppercase">
             <a href="#staff" class="block py-2 text-white">Struktur</a>
             <a href="transparansi.html" class="block py-2 text-white">Transparansi</a>
-            <a href="admin.html" class="block py-4 bg-aruni-gold text-aruni-dark rounded-xl">Admin</a>
+            <a href="admin.html" class="block py-4 bg-aruni-gold text-aruni-dark rounded-xl">Admin Panel</a>
         </div>
     </nav>
 
     <header class="liquid-header pt-48 pb-24 md:pt-60 md:pb-40 px-6 text-white text-center">
-        <div class="blob w-72 h-72 -top-10 -right-10 animate-pulse"></div>
+        <div class="blob w-72 h-72 -top-10 -right-10"></div>
         <div class="container mx-auto relative z-10">
-            
             <div class="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-10">
                 <div class="absolute inset-0 border-4 border-dashed border-aruni-gold/40 rounded-full animate-spin-slow"></div>
-                <div class="absolute inset-2 border-2 border-white/20 rounded-full"></div>
-                <img src="https://lh3.googleusercontent.com/d/10iqK_C7AjflQrBhHQWCoAbPT3jpoAeod" 
-                     alt="Arunikarya Logo" 
-                     class="w-full h-full object-cover rounded-full logo-glow scale-90 hover:scale-100 transition-transform duration-700 bg-aruni-dark shadow-2xl">
+                <img src="https://lh3.googleusercontent.com/d/189L65t9T2Aq-v1stZNgbeh7VuL8ULb26" 
+                     alt="Logo Utama" 
+                     class="relative z-10 w-full h-full object-contain rounded-full logo-glow bg-aruni-dark p-3">
             </div>
 
             <div class="inline-block border border-aruni-gold/30 bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
-                <span class="text-aruni-gold text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em]">Kementerian Pendidikan & Sosial</span>
+                <span class="text-aruni-gold text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em]">Kementerian Pendidikan & Sosial</span>
             </div>
-            <h1 class="text-4xl md:text-7xl font-black mb-6 leading-tight tracking-tighter">
+            <h1 class="text-3xl md:text-7xl font-black mb-6 leading-tight tracking-tighter uppercase">
                 Cahaya dari Proses <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-aruni-gold via-white to-aruni-gold italic font-medium">Terang dari Aksi</span>
             </h1>
-            <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-xl font-light leading-relaxed px-4">
-                Bergerak selaras dalam harmoni Arunika karya untuk menciptakan lembaga eksekutif mahasiswa yang berintegritas, inklusif, dan berdampak.
+            <p class="text-slate-300 max-w-2xl mx-auto text-sm md:text-xl font-light leading-relaxed px-4">
+                Bergerak selaras dalam harmoni Arunikarya untuk menciptakan lembaga eksekutif mahasiswa yang berintegritas, inklusif, dan berdampak.
             </p>
         </div>
     </header>
 
     <section id="staff" class="container mx-auto -mt-12 md:-mt-20 px-4 md:px-6 relative z-20 mb-20">
         <div class="bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl p-6 md:p-12 border border-slate-100">
+            
             <div class="text-center mb-16">
-                <h2 class="text-aruni-teal text-[10px] font-black tracking-[0.4em] uppercase mb-2">Organizational Structure</h2>
-                <h3 class="text-3xl md:text-5xl font-extrabold text-aruni-dark tracking-tighter">Staff</h3>
+                <h2 class="text-aruni-teal text-[10px] font-black tracking-[0.4em] uppercase mb-2">Struktur</h2>
+                <h3 class="text-3xl md:text-5xl font-extrabold text-aruni-dark tracking-tighter uppercase">Anggota Kemendiksos</h3>
                 <div class="h-1.5 w-16 bg-aruni-gold mx-auto mt-4 rounded-full"></div>
             </div>
 
@@ -162,7 +159,7 @@
 
     <footer class="bg-slate-50 border-t border-slate-200 py-16 text-center">
         <div class="container mx-auto px-6">
-            <p class="font-black text-aruni-dark tracking-widest text-lg mb-2 uppercase">ARUNIKA KARYA 2026</p>
+            <p class="font-black text-aruni-dark tracking-widest text-lg mb-2 uppercase">ARUNIKARYA 2026</p>
             <p class="text-aruni-teal/60 text-[9px] font-bold uppercase tracking-[0.4em] mb-8">BEM ITB Swadharma</p>
             <p class="text-slate-400 text-[10px] italic">"Cahaya dari Proses, Terang dari Aksi."</p>
         </div>
