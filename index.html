@@ -16,7 +16,11 @@
                         'aruni-red': '#e11d48',
                         'aruni-dark': '#042f2e',
                     },
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
                 }
             }
         }
@@ -28,37 +32,35 @@
             position: relative;
             overflow: hidden;
         }
+        .logo-glow {
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
+            border: 2px solid rgba(251, 191, 36, 0.5);
+        }
+        .ring-rotate {
+            border: 2px dashed #fbbf24;
+            animation: spin 10s linear infinite;
+        }
         .blob {
             position: absolute;
             background: rgba(251, 191, 36, 0.1);
             filter: blur(60px);
             border-radius: 50%;
             z-index: 1;
-            animation: pulse 10s infinite alternate;
         }
-        @keyframes pulse {
-            from { transform: scale(1) translate(0, 0); }
-            to { transform: scale(1.2) translate(20px, 40px); }
-        }
-        /* Hide scrollbar but keep functionality */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-[#fcfdfd] text-slate-900 overflow-x-hidden font-sans">
 
     <nav class="glass-nav fixed w-full z-[100] text-white border-b border-white/10">
-        <div class="container mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3 group cursor-pointer">
-                <div class="w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
-                    <svg class="w-full h-full" viewBox="0 0 100 100" fill="none">
-                        <circle cx="50" cy="50" r="48" stroke="#fbbf24" stroke-width="2"/>
-                        <circle cx="50" cy="50" r="42" fill="#0f766e"/>
-                        <path d="M35 65C35 55 42 50 50 50C58 50 65 55 65 65V70H35V65Z" fill="#e11d48"/>
-                        <circle cx="50" cy="38" r="12" fill="#fbbf24"/>
-                    </svg>
+        <div class="container mx-auto px-4 md:px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4 group">
+                <div class="relative w-10 h-10">
+                    <div class="absolute inset-0 ring-rotate rounded-full"></div>
+                    <img src="https://lh3.googleusercontent.com/d/10iqK_C7AjflQrBhHQWCoAbPT3jpoAeod" 
+                         class="w-full h-full object-cover rounded-full border border-aruni-gold p-0.5 bg-aruni-dark" alt="Logo">
                 </div>
                 <div class="hidden sm:block">
-                    <span class="font-black tracking-tighter text-lg md:text-xl block leading-none uppercase">KEMENDIKSOS</span>
+                    <span class="font-black tracking-tighter text-lg block leading-none uppercase">KEMENDIKSOS</span>
                     <span class="text-[8px] text-aruni-gold font-bold uppercase tracking-[0.2em]">BEM ITB Swadharma</span>
                 </div>
             </div>
@@ -66,7 +68,7 @@
             <div class="hidden md:flex items-center space-x-8 text-[10px] font-black uppercase tracking-widest">
                 <a href="#staff" class="hover:text-aruni-gold transition-colors">Struktur</a>
                 <a href="transparansi.html" class="hover:text-aruni-gold transition-colors">Transparansi</a>
-                <a href="admin.html" class="bg-aruni-gold text-aruni-dark px-6 py-3 rounded-xl shadow-lg hover:scale-105 active:scale-95 transition">Admin</a>
+                <a href="admin.html" class="bg-aruni-gold text-aruni-dark px-6 py-3 rounded-xl shadow-lg hover:scale-105 active:scale-95 transition">Admin Panel</a>
             </div>
 
             <button class="md:hidden p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
@@ -77,68 +79,77 @@
         </div>
         
         <div id="mobile-menu" class="hidden md:hidden bg-aruni-dark border-t border-white/10 p-4 space-y-4 text-center font-bold text-xs tracking-widest uppercase">
-            <a href="#staff" class="block py-2">Struktur</a>
-            <a href="transparansi.html" class="block py-2">Transparansi</a>
-            <a href="admin.html" class="block py-4 bg-aruni-gold text-aruni-dark rounded-xl">Admin Panel</a>
+            <a href="#staff" class="block py-2 text-white">Struktur</a>
+            <a href="transparansi.html" class="block py-2 text-white">Transparansi</a>
+            <a href="admin.html" class="block py-4 bg-aruni-gold text-aruni-dark rounded-xl">Admin</a>
         </div>
     </nav>
 
-    <header class="liquid-header pt-40 pb-24 md:pt-56 md:pb-40 px-6 text-white text-center">
-        <div class="blob w-72 h-72 -top-10 -right-10"></div>
-        <div class="blob w-64 h-64 -bottom-10 -left-10" style="background:rgba(225,29,72,0.1)"></div>
-        
+    <header class="liquid-header pt-48 pb-24 md:pt-60 md:pb-40 px-6 text-white text-center">
+        <div class="blob w-72 h-72 -top-10 -right-10 animate-pulse"></div>
         <div class="container mx-auto relative z-10">
-            <div class="inline-block border border-aruni-gold/30 bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
-                <span class="text-aruni-gold text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em]">Bakti Sosial & Pendidikan</span>
+            
+            <div class="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-10">
+                <div class="absolute inset-0 border-4 border-dashed border-aruni-gold/40 rounded-full animate-spin-slow"></div>
+                <div class="absolute inset-2 border-2 border-white/20 rounded-full"></div>
+                <img src="https://lh3.googleusercontent.com/d/10iqK_C7AjflQrBhHQWCoAbPT3jpoAeod" 
+                     alt="Arunikarya Logo" 
+                     class="w-full h-full object-cover rounded-full logo-glow scale-90 hover:scale-100 transition-transform duration-700 bg-aruni-dark shadow-2xl">
             </div>
-            <h1 class="text-4xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight tracking-tighter">
-                Nyalakan Pelitamu & <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-aruni-gold via-white to-aruni-gold italic font-medium">Rajut Bakti Sosial</span>
+
+            <div class="inline-block border border-aruni-gold/30 bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
+                <span class="text-aruni-gold text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em]">Kementerian Pendidikan & Sosial</span>
+            </div>
+            <h1 class="text-4xl md:text-7xl font-black mb-6 leading-tight tracking-tighter">
+                Cahaya dari Proses <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-aruni-gold via-white to-aruni-gold italic font-medium">Terang dari Aksi</span>
             </h1>
             <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-xl font-light leading-relaxed px-4">
-                Bergerak selaras dalam harmoni Arunikarya untuk menciptakan dampak nyata bagi masyarakat.
+                Bergerak selaras dalam harmoni Arunika karya untuk menciptakan lembaga eksekutif mahasiswa yang berintegritas, inklusif, dan berdampak.
             </p>
         </div>
     </header>
 
     <section id="staff" class="container mx-auto -mt-12 md:-mt-20 px-4 md:px-6 relative z-20 mb-20">
         <div class="bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl p-6 md:p-12 border border-slate-100">
-            <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-aruni-teal text-[10px] font-black tracking-[0.4em] uppercase mb-2">Our Team</h2>
-                <h3 class="text-3xl md:text-5xl font-extrabold text-aruni-dark tracking-tighter">Struktur</h3>
+            <div class="text-center mb-16">
+                <h2 class="text-aruni-teal text-[10px] font-black tracking-[0.4em] uppercase mb-2">Organizational Structure</h2>
+                <h3 class="text-3xl md:text-5xl font-extrabold text-aruni-dark tracking-tighter">Staff</h3>
                 <div class="h-1.5 w-16 bg-aruni-gold mx-auto mt-4 rounded-full"></div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 max-w-4xl mx-auto mb-16">
-                <div class="bg-slate-50 rounded-[2.5rem] p-8 text-center border border-slate-100 hover:shadow-xl transition duration-500 group">
-                    <div class="w-32 h-32 md:w-44 md:h-44 mx-auto mb-6 rounded-[2rem] overflow-hidden shadow-xl ring-4 ring-white transition-transform group-hover:scale-105">
-                        <img src="https://lh3.googleusercontent.com/d/1dJ7bl9TryJHE1njI-Emm5TFK7oW2FrL7" class="w-full h-full object-cover" alt="Kepala Menteri">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto mb-16">
+                <div class="bg-slate-50 rounded-[2.5rem] p-8 text-center border border-slate-100 hover:shadow-xl transition-all group">
+                    <div class="w-32 h-32 md:w-44 md:h-44 mx-auto mb-6 rounded-full overflow-hidden shadow-xl border-4 border-white transition-transform group-hover:scale-105">
+                        <img src="https://lh3.googleusercontent.com/d/1dJ7bl9TryJHE1njI-Emm5TFK7oW2FrL7" class="w-full h-full object-cover" alt="Adam Fikra Muchlis">
                     </div>
                     <h3 class="font-black text-lg md:text-xl text-aruni-dark uppercase">Adam Fikra Muchlis</h3>
-                    <p class="text-[9px] font-black text-aruni-teal uppercase tracking-widest mt-2 px-3 py-1 bg-aruni-teal/5 rounded-full inline-block">Kepala Menteri</p>
+                    <p class="text-[9px] font-black text-aruni-teal uppercase tracking-widest mt-2 px-3 py-1 bg-aruni-teal/5 rounded-full inline-block border border-aruni-teal/10">Kepala Menteri</p>
                 </div>
-                <div class="bg-slate-50 rounded-[2.5rem] p-8 text-center border border-slate-100 hover:shadow-xl transition duration-500 group">
-                    <div class="w-32 h-32 md:w-44 md:h-44 mx-auto mb-6 rounded-[2rem] overflow-hidden shadow-xl ring-4 ring-white transition-transform group-hover:scale-105">
-                        <img src="https://lh3.googleusercontent.com/d/1H-VCrbpQU5-KvleFTNORkE6tGJ521TsN" class="w-full h-full object-cover" alt="Wakil Menteri">
+
+                <div class="bg-slate-50 rounded-[2.5rem] p-8 text-center border border-slate-100 hover:shadow-xl transition-all group">
+                    <div class="w-32 h-32 md:w-44 md:h-44 mx-auto mb-6 rounded-full overflow-hidden shadow-xl border-4 border-white transition-transform group-hover:scale-105">
+                        <img src="https://lh3.googleusercontent.com/d/1H-VCrbpQU5-KvleFTNORkE6tGJ521TsN" class="w-full h-full object-cover" alt="Andini Olivia">
                     </div>
                     <h3 class="font-black text-lg md:text-xl text-aruni-dark uppercase">Andini Olivia</h3>
-                    <p class="text-[9px] font-black text-aruni-red uppercase tracking-widest mt-2 px-3 py-1 bg-aruni-red/5 rounded-full inline-block">Wakil Menteri</p>
+                    <p class="text-[9px] font-black text-aruni-red uppercase tracking-widest mt-2 px-3 py-1 bg-aruni-red/5 rounded-full inline-block border border-aruni-red/10">Wakil Kepala Menteri</p>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto">
-                <div class="bg-white p-5 md:p-6 rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm flex items-center space-x-4 md:space-x-8 hover:shadow-md transition">
-                    <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 rounded-2xl overflow-hidden shadow-md">
-                        <img src="https://lh3.googleusercontent.com/d/1uHDzw577_KKnY620PcS5_00N9Resvaag" class="w-full h-full object-cover" alt="Director">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <div class="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm flex items-center space-x-6 hover:shadow-md transition group">
+                    <div class="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden shadow-md border-2 border-aruni-teal/20 group-hover:border-aruni-teal transition-colors">
+                        <img src="https://lh3.googleusercontent.com/d/1uHDzw577_KKnY620PcS5_00N9Resvaag" class="w-full h-full object-cover" alt="Jenni Alya">
                     </div>
                     <div>
                         <span class="text-[8px] font-black text-aruni-teal uppercase tracking-widest block mb-1">Dir. Lingkungan</span>
                         <h3 class="font-bold text-base md:text-lg text-aruni-dark uppercase">Jenni Alya</h3>
                     </div>
                 </div>
-                <div class="bg-white p-5 md:p-6 rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm flex items-center space-x-4 md:space-x-8 hover:shadow-md transition">
-                    <div class="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 rounded-2xl overflow-hidden shadow-md">
-                        <img src="https://lh3.googleusercontent.com/d/1UI_m2uIIyq3ecHS435EpNoE4E9KvgPPJ" class="w-full h-full object-cover" alt="Director">
+
+                <div class="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm flex items-center space-x-6 hover:shadow-md transition group">
+                    <div class="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden shadow-md border-2 border-aruni-gold/20 group-hover:border-aruni-gold transition-colors">
+                        <img src="https://lh3.googleusercontent.com/d/1UI_m2uIIyq3ecHS435EpNoE4E9KvgPPJ" class="w-full h-full object-cover" alt="Azahra Balqis">
                     </div>
                     <div>
                         <span class="text-[8px] font-black text-aruni-gold uppercase tracking-widest block mb-1">Dir. Pendidikan</span>
@@ -149,26 +160,11 @@
         </div>
     </section>
 
-    <section class="container mx-auto px-4 md:px-6 mb-24 text-center">
-        <div class="bg-aruni-dark rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 relative overflow-hidden shadow-3xl">
-            <div class="relative z-10">
-                <h2 class="text-2xl md:text-4xl font-black text-white mb-6 uppercase tracking-tight">Transparansi Dana</h2>
-                <p class="text-aruni-gold mb-10 text-sm md:text-lg italic opacity-80 max-w-md mx-auto">Lihat laporan pertanggungjawaban donasi kami secara terbuka.</p>
-                <a href="transparansi.html" class="inline-flex items-center space-x-4 bg-white text-aruni-dark px-8 md:px-12 py-4 md:py-5 rounded-2xl font-black text-xs md:text-sm tracking-widest hover:bg-aruni-gold transition-all transform hover:scale-105 active:scale-95">
-                    <span>LIHAT LAPORAN</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-slate-50 border-t border-slate-200 py-12 md:py-16 text-center">
+    <footer class="bg-slate-50 border-t border-slate-200 py-16 text-center">
         <div class="container mx-auto px-6">
-            <p class="font-black text-aruni-dark tracking-widest text-lg mb-2 uppercase">ARUNIKARYA 2026</p>
+            <p class="font-black text-aruni-dark tracking-widest text-lg mb-2 uppercase">ARUNIKA KARYA 2026</p>
             <p class="text-aruni-teal/60 text-[9px] font-bold uppercase tracking-[0.4em] mb-8">BEM ITB Swadharma</p>
-            <p class="text-slate-400 text-[10px] italic">"Menyalakan Pelita, Merajut Asa ."</p>
+            <p class="text-slate-400 text-[10px] italic">"Cahaya dari Proses, Terang dari Aksi."</p>
         </div>
     </footer>
 
