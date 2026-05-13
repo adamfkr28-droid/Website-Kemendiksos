@@ -3,195 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | Arunikarya</title>
+    <title>Admin | Kemendiksos</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'aruni-teal': '#0f766e',
-                        'aruni-gold': '#fbbf24',
-                        'aruni-red': '#e11d48',
-                        'aruni-dark': '#042f2e',
-                    },
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .liquid-bg {
-            background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .blob {
-            position: absolute;
-            background: rgba(251, 191, 36, 0.1);
-            filter: blur(50px);
-            border-radius: 50%;
-            z-index: 0;
-            animation: move 10s infinite alternate;
-        }
-        @keyframes move {
-            from { transform: translate(0, 0); }
-            to { transform: translate(30px, 50px); }
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        .bg-gradient-pro { background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%); }
+        /* Animasi loading sederhana */
+        .loader { border-top-color: #3498db; animation: spinner 1.5s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen flex items-center justify-center p-4 md:p-6 text-slate-900 font-sans">
+<body class="bg-slate-50 min-h-screen text-slate-900">
 
-    <div id="login-section" class="liquid-bg max-w-md w-full p-1 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
-        <div class="blob w-40 h-40 -top-10 -left-10"></div>
-        <div class="bg-white m-0.5 p-8 md:p-10 rounded-[2.4rem] relative z-10">
-            <div class="text-center mb-10">
-                <div class="w-16 h-16 bg-aruni-teal/5 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-inner group transition-all">
-                    <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none">
-                        <circle cx="50" cy="50" r="48" stroke="#fbbf24" stroke-width="4"/>
-                        <circle cx="50" cy="50" r="35" fill="#0f766e"/>
-                        <path d="M45 40V60L60 50L45 40Z" fill="white"/>
-                    </svg>
+    <!-- Login Section -->
+    <div id="login-section" class="flex items-center justify-center min-h-screen p-6">
+        <div class="bg-white p-10 rounded-[2.5rem] shadow-2xl w-full max-w-md border border-slate-100">
+            <div class="flex flex-col items-center mb-8">
+                <div class="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center mb-4">
+                    <svg class="w-8 h-8 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                 </div>
-                <h2 class="text-2xl font-black tracking-tighter text-aruni-dark uppercase">Admin Login</h2>
-                <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em] mt-2">Kabinet Arunikarya</p>
+                <h2 class="text-3xl font-extrabold text-teal-900 tracking-tighter">ADMIN LOGIN</h2>
+                <p class="text-slate-400 text-sm">Masuk untuk mengelola transparansi data</p>
             </div>
-            
-            <form id="form-login" class="space-y-4">
-                <div class="space-y-1">
-                    <label class="text-[9px] font-black uppercase text-slate-400 ml-4">Username</label>
-                    <input type="text" id="username" placeholder="Masukkan ID" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-aruni-teal/20 transition" required>
-                </div>
-                <div class="space-y-1">
-                    <label class="text-[9px] font-black uppercase text-slate-400 ml-4">Password</label>
-                    <input type="password" id="password" placeholder="••••••••" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-aruni-teal/20 transition" required>
-                </div>
-                <button type="submit" class="w-full bg-aruni-dark text-white font-black text-xs uppercase tracking-widest py-5 rounded-2xl hover:bg-aruni-teal transition shadow-xl active:scale-95">
-                    Akses Panel Control
+            <form id="form-login" class="space-y-5">
+                <input type="text" id="username" placeholder="Username" class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 outline-none transition-all" required>
+                <input type="password" id="password" placeholder="Password" class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 outline-none transition-all" required>
+                <button type="submit" class="w-full bg-teal-700 text-white font-bold py-4 rounded-2xl hover:bg-teal-800 transform active:scale-[0.98] transition-all shadow-lg shadow-teal-700/20">
+                    Masuk ke Sistem
                 </button>
             </form>
         </div>
     </div>
 
-    <div id="admin-panel" class="hidden max-w-2xl w-full bg-white p-6 md:p-10 rounded-[3rem] shadow-2xl border border-slate-100 relative">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4 pb-6 border-b border-slate-50">
-            <div class="text-center md:text-left">
-                <h2 class="text-2xl font-black text-aruni-dark tracking-tighter uppercase">Input Data Donasi</h2>
-                <p class="text-[10px] text-aruni-teal font-black uppercase tracking-widest mt-1">Control Panel • Arunikarya 2026</p>
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="hidden max-w-7xl mx-auto p-6 lg:p-12">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+            <div>
+                <h1 class="text-4xl font-black text-slate-900 tracking-tight">Dashboard <span class="text-teal-600">Admin</span></h1>
+                <p class="text-slate-500">Kelola distribusi bantuan dan transparansi program.</p>
             </div>
-            <button onclick="location.reload()" class="w-full md:w-auto bg-aruni-red/5 text-aruni-red px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-aruni-red hover:text-white transition">Logout</button>
-        </div>
+            <button onclick="location.reload()" class="px-6 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 transition-all">Logout</button>
+        </header>
 
-        <form id="form-donasi" class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="space-y-1">
-                    <label class="text-[9px] font-black uppercase text-slate-400 ml-2 block">Tanggal Kegiatan</label>
-                    <input type="date" id="tanggal" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:border-aruni-teal outline-none transition" required>
-                </div>
-                <div class="space-y-1">
-                    <label class="text-[9px] font-black uppercase text-slate-400 ml-2 block">Status Penyaluran</label>
-                    <div class="relative">
-                        <select id="status" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:border-aruni-teal outline-none appearance-none cursor-pointer">
-                            <option value="Proses">🟡 Dalam Proses</option>
-                            <option value="Selesai">🔵 Selesai Administrasi</option>
-                            <option value="Tersalurkan">🟢 Berhasil Tersalurkan</option>
-                        </select>
-                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
+        <div class="grid lg:grid-cols-12 gap-10">
+            <!-- Form Card -->
+            <div class="lg:col-span-4">
+                <div class="bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 sticky top-10">
+                    <div class="bg-gradient-pro p-8 text-white">
+                        <h2 id="form-title" class="text-xl font-bold uppercase tracking-widest">Input Data Baru</h2>
+                        <p class="text-teal-100 text-xs opacity-80 mt-1">Lengkapi form di bawah secara teliti.</p>
+                    </div>
+                    
+                    <form id="form-donasi" class="p-8 space-y-6">
+                        <input type="hidden" id="edit-id"> 
+                        
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold uppercase text-slate-500 ml-1">Tanggal Kegiatan</label>
+                            <input type="date" id="tanggal" class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 text-sm focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all" required>
                         </div>
+
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold uppercase text-slate-500 ml-1">Nama Program</label>
+                            <input type="text" id="kegiatan" placeholder="Misal: Bantuan Sembako" class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 text-sm focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all" required>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold uppercase text-slate-500 ml-1">Nominal (Rp)</label>
+                            <input type="number" id="jumlah" placeholder="Masukkan angka saja" class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 text-sm focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all" required>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold uppercase text-slate-500 ml-1">Status Penyaluran</label>
+                            <select id="status" class="w-full px-5 py-3.5 rounded-2xl border border-slate-200 text-sm focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 outline-none transition-all bg-white">
+                                <option value="Tersalurkan">✅ Tersalurkan</option>
+                                <option value="Proses">⏳ Dalam Proses</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-1.5">
+                            <label class="text-xs font-bold uppercase text-slate-500 ml-1">Bukti Foto</label>
+                            <div class="relative group">
+                                <input type="file" id="foto" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100 transition-all">
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-3 pt-4">
+                            <button type="submit" id="btn-submit" class="w-full bg-teal-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-teal-700/30 hover:bg-teal-800 transform active:scale-95 transition-all uppercase text-xs tracking-widest">
+                                Simpan Data
+                            </button>
+                            <button type="button" id="btn-cancel" class="hidden w-full bg-slate-100 text-slate-500 font-bold py-4 rounded-2xl uppercase text-xs hover:bg-slate-200 transition-all" onclick="resetForm()">
+                                Batal Edit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="lg:col-span-8">
+                <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden">
+                    <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-white">
+                        <h2 class="font-bold text-slate-800 uppercase tracking-widest text-sm">Riwayat Transparansi</h2>
+                        <span id="data-count" class="bg-teal-100 text-teal-700 text-[10px] px-4 py-1.5 rounded-full font-black uppercase">0 Data Ditemukan</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="bg-slate-50/50 text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">
+                                    <th class="p-6">Informasi Kegiatan</th>
+                                    <th class="p-6">Nominal</th>
+                                    <th class="p-6">Dokumentasi</th>
+                                    <th class="p-6 text-center">Opsi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-admin" class="divide-y divide-slate-50">
+                                <!-- Data akan masuk di sini -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            
-            <div class="space-y-1">
-                <label class="text-[9px] font-black uppercase text-slate-400 ml-2 block">Nama Program Kerja / Kegiatan</label>
-                <input type="text" id="kegiatan" placeholder="Contoh: Bakti Sosial Pendidikan Desa X" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:border-aruni-teal outline-none transition" required>
-            </div>
-
-            <div class="space-y-1">
-                <label class="text-[9px] font-black uppercase text-slate-400 ml-2 block">Alokasi Dana (Contoh: 1.500.000)</label>
-                <div class="relative">
-                    <span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">Rp</span>
-                    <input type="text" id="jumlah" placeholder="0" class="w-full p-4 pl-12 bg-slate-50 border border-slate-100 rounded-2xl focus:border-aruni-teal outline-none transition" required>
-                </div>
-            </div>
-            
-            <button type="submit" id="btn-submit" class="w-full bg-aruni-teal text-white font-black text-xs uppercase tracking-widest py-5 rounded-2xl hover:bg-aruni-dark transition shadow-xl shadow-aruni-teal/20 flex items-center justify-center gap-3 active:scale-[0.98]">
-                <span>Sinkronkan ke Google Cloud</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
-            </button>
-        </form>
-
-        <div class="mt-10 pt-6 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4">
-            <a href="transparansi.html" target="_blank" class="text-[9px] font-black text-slate-400 hover:text-aruni-gold transition uppercase tracking-widest flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                Lihat Hasil Publik
-            </a>
-            <span class="text-[8px] text-slate-300 font-bold uppercase tracking-[0.2em]">Secure Connection Active</span>
         </div>
     </div>
 
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzcnkUbblEj0YX_43SmxFbEauhJd7ohZDm8_q8WRcDctgqmNaHCZm5sYFXsSF4tPVyf/exec';
+        // 1. CONFIG
+        const SUPABASE_URL = 'https://fqkqkfthpcvodgqcmjnh.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxa3FrZnRocGN2b2RncWNtam5oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjI1NDAsImV4cCI6MjA5NDEzODU0MH0.zFsrt80xCpaVMN9HlZaix8icdVLTslzGb_0j8zfjyic';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // --- SISTEM LOGIN ---
-        const loginForm = document.getElementById('form-login');
-        loginForm.addEventListener('submit', (e) => {
+        // 2. AUTH
+        document.getElementById('form-login').addEventListener('submit', (e) => {
             e.preventDefault();
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
-
-            // Username: Diksos2425 | Password: Arunikarya
-            if(user === "Diksos2425" && pass === "Arunikarya") {
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('admin-panel').classList.remove('hidden');
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            
+            if(u === "admin" && p === "arunikarya2026") {
+                document.getElementById('login-section').style.display = 'none';
+                const panel = document.getElementById('admin-panel');
+                panel.classList.remove('hidden');
+                panel.classList.add('block');
+                fetchData();
             } else {
-                alert("Username atau Password salah!");
+                alert("❌ Akses Ditolak! Kredensial tidak valid.");
             }
         });
 
-        // --- SISTEM PENGIRIMAN DATA ---
-        const donasiForm = document.getElementById('form-donasi');
-        const btnSubmit = document.getElementById('btn-submit');
+        // 3. FETCH DATA
+        async function fetchData() {
+            const { data, error } = await _supabase.from('donasi').select('*').order('tanggal', { ascending: false });
+            if (error) return console.error(error);
 
-        donasiForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            btnSubmit.disabled = true;
-            const originalText = btnSubmit.innerHTML;
-            btnSubmit.innerHTML = `<span>Proses Sinkronisasi...</span>`;
+            const tbody = document.getElementById('table-admin');
+            document.getElementById('data-count').innerText = `${data.length} Data Ditemukan`;
+            tbody.innerHTML = '';
 
-            const data = {
-                tanggal: document.getElementById('tanggal').value,
-                kegiatan: document.getElementById('kegiatan').value,
-                jumlah: document.getElementById('jumlah').value,
-                status: document.getElementById('status').value
-            };
-
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(data)
-            })
-            .then(() => {
-                alert("✅ BERHASIL! Data Arunikarya telah diperbarui.");
-                donasiForm.reset();
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                alert("❌ GAGAL: Periksa koneksi internet atau deployment Apps Script.");
-            })
-            .finally(() => {
-                btnSubmit.disabled = false;
-                btnSubmit.innerHTML = originalText;
+            data.forEach(item => {
+                const statusColor = item.status === 'Tersalurkan' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600';
+                
+                tbody.innerHTML += `
+                    <tr class="group hover:bg-slate-50/80 transition-all">
+                        <td class="p-6">
+                            <div class="font-bold text-slate-800 text-sm group-hover:text-teal-700 transition-colors">${item.kegiatan}</div>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-[10px] text-slate-400 font-medium">${item.tanggal}</span>
+                                <span class="px-2 py-0.5 rounded text-[9px] font-bold ${statusColor}">${item.status}</span>
+                            </div>
+                        </td>
+                        <td class="p-6 font-bold text-slate-700 text-sm">
+                            Rp ${parseInt(item.jumlah).toLocaleString('id-ID')}
+                        </td>
+                        <td class="p-6">
+                            ${item.foto ? `<img src="${item.foto}" class="w-12 h-12 object-cover rounded-xl shadow-md border-2 border-white hover:scale-110 transition-transform">` : '<div class="w-10 h-10 bg-slate-100 rounded-xl flex items-center justify-center text-[10px] text-slate-400">No Img</div>'}
+                        </td>
+                        <td class="p-6">
+                            <div class="flex justify-center gap-3">
+                                <button onclick="editData('${item.id}', '${item.tanggal}', '${item.kegiatan}', ${item.jumlah}, '${item.status}')" class="p-2.5 bg-white border border-slate-100 text-amber-500 rounded-xl hover:bg-amber-500 hover:text-white transition-all shadow-sm">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                                <button onclick="deleteData('${item.id}')" class="p-2.5 bg-white border border-slate-100 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-all shadow-sm">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
             });
+        }
+
+        // 4. LOGIC
+        function editData(id, tgl, kegiatan, jml, status) {
+            document.getElementById('edit-id').value = id;
+            document.getElementById('tanggal').value = tgl;
+            document.getElementById('kegiatan').value = kegiatan;
+            document.getElementById('jumlah').value = jml;
+            document.getElementById('status').value = status;
+            
+            document.getElementById('form-title').innerText = "Mode Perbarui Data";
+            document.getElementById('btn-submit').innerText = "Simpan Perubahan";
+            document.getElementById('btn-cancel').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            document.getElementById('form-donasi').reset();
+            document.getElementById('edit-id').value = '';
+            document.getElementById('form-title').innerText = "Input Data Baru";
+            document.getElementById('btn-submit').innerText = "Simpan Data";
+            document.getElementById('btn-cancel').classList.add('hidden');
+        }
+
+        async function deleteData(id) {
+            if (confirm('⚠️ Hapus data? Tindakan ini tidak bisa dibatalkan.')) {
+                const { error } = await _supabase.from('donasi').delete().eq('id', id);
+                if (error) alert(error.message);
+                else fetchData();
+            }
+        }
+
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+        document.getElementById('form-donasi').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit');
+            const editId = document.getElementById('edit-id').value;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="flex items-center justify-center gap-2"><svg class="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memproses...</span>`;
+
+            try {
+                let payload = {
+                    tanggal: document.getElementById('tanggal').value,
+                    kegiatan: document.getElementById('kegiatan').value,
+                    jumlah: parseInt(document.getElementById('jumlah').value),
+                    status: document.getElementById('status').value
+                };
+
+                const fileInput = document.getElementById('foto').files[0];
+                if (fileInput) {
+                    if (fileInput.size > 1 * 1024 * 1024) throw new Error("File maksimal 1MB");
+                    payload.foto = await toBase64(fileInput);
+                }
+
+                if (editId) {
+                    const { error } = await _supabase.from('donasi').update(payload).eq('id', editId);
+                    if (error) throw error;
+                } else {
+                    const { error } = await _supabase.from('donasi').insert([payload]);
+                    if (error) throw error;
+                }
+
+                resetForm();
+                fetchData();
+                alert("🎯 Data berhasil disinkronkan!");
+            } catch (err) {
+                alert("❌ Gagal: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerText = editId ? "Simpan Perubahan" : "Simpan Data";
+            }
         });
     </script>
 </body>
