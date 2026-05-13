@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transparansi | Kemendiksos</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -18,144 +21,246 @@
                     },
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
                     animation: {
-                        'spin-slow': 'spin 12s linear infinite',
+                        'zoom-in': 'zoomIn 0.3s ease-out forwards',
+                    },
+                    keyframes: {
+                        zoomIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        }
                     }
                 }
             }
         }
     </script>
+
     <style>
-        .glass-nav { background: rgba(4, 47, 46, 0.95); backdrop-filter: blur(15px); }
-        .liquid-header {
-            background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .logo-glow {
-            box-shadow: 0 0 40px rgba(251, 191, 36, 0.3);
-            border: 2px solid rgba(251, 191, 36, 0.4);
-        }
-        .ring-rotate {
-            border: 2px dashed rgba(251, 191, 36, 0.5);
-            animation: spin 15s linear infinite;
-        }
-        .blob {
-            position: absolute;
-            background: rgba(251, 191, 36, 0.1);
-            filter: blur(60px);
-            border-radius: 50%;
-            z-index: 1;
-            animation: pulse 8s infinite alternate;
-        }
-        @keyframes pulse {
-            from { transform: scale(1); opacity: 0.4; }
-            to { transform: scale(1.3); opacity: 0.7; }
-        }
+        .glass-nav { background: rgba(4, 47, 46, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
+        .liquid-header { background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%); position: relative; overflow: hidden; }
+        .blob { position: absolute; background: rgba(251, 191, 36, 0.1); filter: blur(60px); border-radius: 50%; z-index: 1; animation: pulse 8s infinite alternate; }
+        @keyframes pulse { from { transform: scale(1); opacity: 0.4; } to { transform: scale(1.3); opacity: 0.7; } }
+        
+        .hidden-panel { display: none; opacity: 0; transform: translateY(20px); }
+        .show-panel { display: block; opacity: 1; transform: translateY(0); transition: all 0.5s ease; }
+
+        /* Custom Scrollbar untuk Tabel Mobile */
+        .custom-scroll::-webkit-scrollbar { height: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 10px; }
     </style>
 </head>
 <body class="bg-[#fcfdfd] text-slate-900 font-sans overflow-x-hidden">
 
-    <nav class="glass-nav fixed w-full z-[100] text-white border-b border-white/10">
+    <nav class="glass-nav fixed w-full z-[100] text-white border-b border-white/5">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="relative w-10 h-10 flex-shrink-0">
-                    <div class="absolute inset-0 ring-rotate rounded-full"></div>
-                    <img src="https://lh3.googleusercontent.com/d/1rQCklPuUH3xpJtUUpkchouNMu5j038UR" 
-                         class="w-full h-full object-contain rounded-full p-0.5 bg-aruni-dark" 
-                         onerror="this.src='https://ui-avatars.com/api/?name=K&background=fbbf24&color=042f2e'"
-                         alt="Logo Arunikarya">
+            <div class="flex items-center space-x-4 group cursor-pointer">
+                <div class="relative w-10 h-10 flex items-center justify-center">
+                    <div class="absolute inset-0 border-2 border-dashed border-aruni-gold/40 rounded-full animate-[spin_8s_linear_infinite]"></div>
+                    <div class="absolute inset-1.5 border-2 border-aruni-gold/60 border-t-transparent rounded-full animate-[spin_3s_linear_infinite_reverse]"></div>
+                    <div class="w-2 h-2 bg-aruni-gold rounded-full shadow-[0_0_15px_#fbbf24] animate-pulse"></div>
                 </div>
                 <div class="block">
-                    <span class="font-black tracking-tighter text-sm md:text-lg block leading-none uppercase">KEMENDIKSOS</span>
-                    <span class="text-[7px] md:text-[8px] text-aruni-gold font-bold uppercase tracking-[0.15em] block leading-tight">BEM ITB SWADHARMA</span>
+                    <span class="font-black tracking-tighter text-sm md:text-lg block leading-none uppercase group-hover:text-aruni-gold transition-colors">KEMENDIKSOS</span>
+                    <span class="text-[7px] md:text-[8px] text-aruni-gold font-bold uppercase tracking-[0.1em] block leading-tight">BEM ITB Swadharma</span>
                 </div>
-            </a>
-            
-            <a href="index.html" class="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] bg-white/10 hover:bg-aruni-gold hover:text-aruni-dark px-4 py-2.5 md:px-6 md:py-3 rounded-xl transition-all flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
-                </svg>
-                Beranda
-            </a>
+            </div>
+            <div class="flex items-center">
+                <a href="index.html" class="bg-white/10 hover:bg-aruni-gold hover:text-aruni-dark px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 border border-white/10 shadow-lg">
+                    Beranda
+                </a>
+            </div>
         </div>
     </nav>
 
-    <header class="liquid-header pt-44 pb-28 md:pt-56 md:pb-40 px-6 text-white text-center">
+    <header class="liquid-header pt-40 pb-24 md:pt-56 md:pb-40 px-6 text-white text-center">
         <div class="blob w-80 h-80 -top-10 -right-10"></div>
         <div class="container mx-auto relative z-10">
-            
-            <div class="relative w-32 h-32 mx-auto mb-10">
-                <div class="absolute inset-0 border-2 border-dashed border-aruni-gold/60 rounded-full animate-spin-slow"></div>
-                <div class="absolute inset-4 bg-aruni-gold/10 blur-2xl rounded-full"></div>
-                <img src="https://lh3.googleusercontent.com/d/189L65t9T2Aq-v1stZNgbeh7VuL8ULb26" 
-                     class="relative z-10 w-full h-full object-contain rounded-full p-3 bg-aruni-dark logo-glow"
-                     onerror="this.src='https://ui-avatars.com/api/?name=Arunikarya&background=fbbf24&color=042f2e'"
-                     alt="Logo Arunikarya Besar">
+            <div class="inline-block border border-aruni-gold/30 bg-white/5 backdrop-blur-md px-5 py-2 rounded-full mb-6">
+                <span class="text-aruni-gold text-[9px] font-black uppercase tracking-[0.4em]">Transparansi Digital 2026</span>
             </div>
-
-            <div class="inline-block border border-aruni-gold/30 bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
-                <span class="text-aruni-gold text-[9px] font-black uppercase tracking-[0.4em]">Transparansi Bakti Sosial</span>
-            </div>
-            <h1 class="text-3xl md:text-6xl font-black mb-4 tracking-tighter uppercase leading-tight">Laporan Transparansi</h1>
-            <p class="text-slate-300 max-w-2xl mx-auto text-sm md:text-lg italic font-light px-4 leading-relaxed">
-                "Wujud komitmen Arunikarya terhadap akuntabilitas dan profesionalitas pengelolaan dana sosial."
+            <h1 class="text-4xl md:text-7xl font-black mb-4 tracking-tighter uppercase leading-tight">Laporan Transparansi</h1>
+            <p class="text-slate-300 max-w-2xl mx-auto text-sm italic font-light px-4 leading-relaxed opacity-80">
+                "Wujud komitmen Kemendiksos terhadap akuntabilitas dan profesionalitas pengelolaan dana sosial."
             </p>
         </div>
     </header>
 
-    <main class="container mx-auto -mt-12 md:-mt-16 px-4 md:px-6 relative z-20 mb-32">
-        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            
-            <div class="group bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-100 p-8 md:p-12 text-center flex flex-col justify-between transition-all hover:-translate-y-2">
-                <div>
-                    <div class="w-20 h-20 bg-aruni-teal/5 text-aruni-teal rounded-[2rem] flex items-center justify-center mx-auto mb-8 transition-all group-hover:bg-aruni-teal group-hover:text-white group-hover:rotate-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                        </svg>
-                    </div>
-                    <h2 class="text-2xl font-black text-aruni-dark mb-4 uppercase tracking-tight">Rekapitulasi Dana</h2>
-                    <p class="text-slate-500 text-sm mb-10 leading-relaxed">
-                        Dokumen data donasi Bakti Sosial & bukti rincian penyaluran dana dalam format <b>Excel (.xlsx)</b>.
-                    </p>
+    <main class="container mx-auto -mt-12 md:-mt-20 px-4 md:px-6 relative z-20 mb-32">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 max-w-5xl mx-auto mb-16">
+            <button onclick="togglePanel('panel-tabel')" class="group bg-white rounded-[2rem] shadow-2xl border border-slate-100 p-8 text-center flex flex-col items-center transition-all hover:-translate-y-2 active:scale-95">
+                <div class="w-16 h-16 bg-aruni-teal/5 text-aruni-teal rounded-2xl flex items-center justify-center mb-4 group-hover:bg-aruni-teal group-hover:text-white transition-all shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                 </div>
-                <a id="btn-download" href="#" class="inline-flex items-center justify-center w-full px-8 py-5 bg-aruni-teal text-white font-black text-xs tracking-widest uppercase rounded-2xl shadow-lg shadow-aruni-teal/20 hover:bg-aruni-dark transition-all active:scale-95">
-                    Unduh Data_Donasi XLSX
-                </a>
-            </div>
+                <h2 class="text-xl font-black text-aruni-dark uppercase tracking-tight">Rekapitulasi Dana</h2>
+                <p class="text-slate-400 text-[10px] mt-2">Rincian Penyaluran Dana Bakti Sosial.</p>
+            </button>
 
-            <div class="group bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200 border border-slate-100 p-8 md:p-12 text-center flex flex-col justify-between transition-all hover:-translate-y-2">
-                <div>
-                    <div class="w-20 h-20 bg-aruni-red/5 text-aruni-red rounded-[2rem] flex items-center justify-center mx-auto mb-8 transition-all group-hover:bg-aruni-red group-hover:text-white group-hover:-rotate-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                    </div>
-                    <h2 class="text-2xl font-black text-aruni-dark mb-4 uppercase tracking-tight">Galeri Penyaluran</h2>
-                    <p class="text-slate-500 text-sm mb-10 leading-relaxed">
-                        Arsip digital berupa dokumentasi foto sebagai bukti nyata penyaluran bantuan di lapangan.
-                    </p>
+            <button onclick="togglePanel('panel-galeri')" class="group bg-white rounded-[2rem] shadow-2xl border border-slate-100 p-8 text-center flex flex-col items-center transition-all hover:-translate-y-2 active:scale-95">
+                <div class="w-16 h-16 bg-aruni-red/5 text-aruni-red rounded-2xl flex items-center justify-center mb-4 group-hover:bg-aruni-red group-hover:text-white transition-all shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                 </div>
-                <a href="https://drive.google.com/drive/folders/1mkLrynqxX_dnXrc8DQaDKqEOpUTF_Pqg?usp=sharing" target="_blank" class="inline-flex items-center justify-center w-full px-8 py-5 bg-aruni-gold text-aruni-dark font-black text-xs tracking-widest uppercase rounded-2xl shadow-lg shadow-aruni-gold/20 hover:scale-[1.02] transition-all active:scale-95">
-                    Buka Folder Dokumentasi
-                </a>
-            </div>
-
+                <h2 class="text-xl font-black text-aruni-dark uppercase tracking-tight">Galeri Penyaluran</h2>
+                <p class="text-slate-400 text-[10px] mt-2">Bukti dokumentasi kegiatan.</p>
+            </button>
         </div>
+
+        <section id="panel-tabel" class="hidden-panel max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-8 text-center sm:text-left">
+                <div class="bg-aruni-teal text-white p-8 rounded-[2.5rem] shadow-xl relative overflow-hidden">
+                    <p class="text-[10px] font-black uppercase tracking-[0.3em] opacity-70 mb-2">Total Terintegrasi</p>
+                    <h2 id="total-dana" class="text-3xl md:text-5xl font-black tracking-tighter italic">Rp 0</h2>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col justify-center">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">Jumlah Entri</p>
+                    <h2 id="total-kegiatan" class="text-3xl md:text-5xl font-black text-aruni-dark tracking-tighter">0</h2>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden">
+                <div class="overflow-x-auto custom-scroll">
+                    <table class="w-full text-left min-w-[700px]">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100 text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">
+                                <th class="p-6 text-center">ID</th>
+                                <th class="p-6">Waktu</th>
+                                <th class="p-6">Program Baksos</th>
+                                <th class="p-6 text-right">Nominal</th>
+                                <th class="p-6 text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body" class="text-sm font-semibold text-slate-700 divide-y divide-slate-50">
+                            <tr><td colspan="5" class="p-20 text-center animate-pulse text-slate-300 italic uppercase text-[10px] tracking-widest">Sinkronisasi Data...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="panel-galeri" class="hidden-panel max-w-6xl mx-auto">
+            <div class="flex flex-col items-center mb-12">
+                <div class="h-1.5 w-16 bg-aruni-red rounded-full mb-4"></div>
+                <h3 class="text-3xl font-black text-aruni-dark uppercase tracking-tight">Dokumentasi</h3>
+            </div>
+            <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                </div>
+        </section>
     </main>
 
-    <footer class="bg-aruni-dark text-white py-16 text-center">
-        <div class="container mx-auto px-6">
-            <p class="font-black tracking-widest text-lg mb-2 uppercase">ARUNIKARYA 2026</p>
-            <p class="text-aruni-gold/60 text-[9px] font-bold uppercase tracking-[0.4em] mb-6">BEM ITB Swadharma</p>
-            <div class="h-px w-12 bg-white/10 mx-auto mb-6"></div>
-            <p class="text-slate-500 text-[10px] italic">"Cahaya dari Proses, Terang dari Aksi."</p>
+    <div id="lightbox" class="fixed inset-0 z-[200] bg-aruni-dark/95 hidden backdrop-blur-xl flex items-center justify-center p-4" onclick="closeLightbox()">
+        <button class="absolute top-6 right-6 text-white/50 hover:text-aruni-gold transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <div class="max-w-4xl w-full flex flex-col items-center animate-zoom-in" onclick="event.stopPropagation()">
+            <img id="lightbox-img" src="" class="max-w-full max-h-[75vh] rounded-2xl shadow-2xl border-4 border-white/10 object-contain bg-black">
+            <div class="mt-6 text-center">
+                <h4 id="lightbox-title" class="text-white font-black uppercase tracking-[0.2em] text-lg"></h4>
+                <p id="lightbox-date" class="text-aruni-gold font-bold text-xs mt-2 tracking-widest"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-aruni-dark text-white py-16 text-center relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <p class="font-black tracking-[0.4em] text-lg mb-2 uppercase">ARUNIKARYA 2026</p>
+            <p class="text-slate-500 text-[9px] italic font-light tracking-[0.3em]">"Transparansi untuk Kepercayaan."</p>
         </div>
     </footer>
 
     <script>
-        const SHEET_ID = '1FovwasmUqHEyTtnylCr7dDqZ5ctoLZonVvHRQRmOKCs';
-        const DOWNLOAD_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=xlsx`;
-        document.getElementById('btn-download').href = DOWNLOAD_URL;
+        const SUPABASE_URL = 'https://fqkqkfthpcvodgqcmjnh.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxa3FrZnRocGN2b2RncWNtam5oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjI1NDAsImV4cCI6MjA5NDEzODU0MH0.zFsrt80xCpaVMN9HlZaix8icdVLTslzGb_0j8zfjyic';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        function formatIDDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        function togglePanel(panelId) {
+            const panels = ['panel-tabel', 'panel-galeri'];
+            panels.forEach(id => {
+                const el = document.getElementById(id);
+                el.classList.add('hidden-panel');
+                el.classList.remove('show-panel');
+            });
+            const activePanel = document.getElementById(panelId);
+            activePanel.classList.remove('hidden-panel');
+            setTimeout(() => activePanel.classList.add('show-panel'), 50);
+            activePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openLightbox(imgSrc, title, date) {
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox-title').innerText = title;
+            document.getElementById('lightbox-date').innerText = date;
+            lb.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        async function fetchAndRenderData() {
+            try {
+                const { data, error } = await _supabase.from('donasi').select('*').order('tanggal', { ascending: false });
+                if (error) throw error;
+
+                const tableBody = document.getElementById('table-body');
+                const galleryContainer = document.getElementById('gallery-container');
+                let totalDana = 0;
+
+                tableBody.innerHTML = '';
+                galleryContainer.innerHTML = '';
+
+                data.forEach((item, index) => {
+                    const nominal = Number(item.jumlah);
+                    totalDana += nominal;
+                    const formattedDate = formatIDDate(item.tanggal);
+
+                    // Table Row
+                    tableBody.innerHTML += `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="p-6 text-center text-slate-300 font-bold">#${index + 1}</td>
+                            <td class="p-6 text-[10px] text-slate-500 font-bold uppercase">${formattedDate}</td>
+                            <td class="p-6 font-extrabold text-aruni-dark uppercase text-xs">${item.kegiatan}</td>
+                            <td class="p-6 text-right font-black text-aruni-teal text-base">Rp ${nominal.toLocaleString('id-ID')}</td>
+                            <td class="p-6 text-center">
+                                <span class="px-3 py-1 bg-teal-50 text-teal-600 rounded-lg text-[9px] font-black uppercase border border-teal-100">${item.status}</span>
+                            </td>
+                        </tr>
+                    `;
+
+                    // Gallery Card
+                    if (item.foto) {
+                        galleryContainer.innerHTML += `
+                            <div class="bg-white rounded-[2rem] overflow-hidden shadow-lg border border-slate-100 group cursor-pointer hover:shadow-2xl transition-all duration-500" 
+                                 onclick="openLightbox('${item.foto}', '${item.kegiatan}', '${formattedDate}')">
+                                <div class="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+                                    <img src="${item.foto}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                    <div class="absolute inset-0 bg-aruni-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <span class="bg-white text-aruni-dark px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">Perbesar</span>
+                                    </div>
+                                </div>
+                                <div class="p-6 text-center">
+                                    <p class="text-[9px] font-black text-aruni-red uppercase tracking-widest mb-2">${formattedDate}</p>
+                                    <h4 class="font-extrabold text-aruni-dark text-sm leading-tight uppercase truncate">${item.kegiatan}</h4>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                document.getElementById('total-dana').innerText = `Rp ${totalDana.toLocaleString('id-ID')}`;
+                document.getElementById('total-kegiatan').innerText = data.length;
+            } catch (err) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-red-500 font-bold uppercase text-xs">Error Sinkronisasi Data</td></tr>`;
+            }
+        }
+
+        fetchAndRenderData();
     </script>
 </body>
 </html>
