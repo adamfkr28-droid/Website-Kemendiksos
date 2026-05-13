@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kemendiksos | BEM ITBS</title>
+    <title>Kemendiksos | BEM ITBS Swadharma</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Official website Kementerian Pendidikan & Sosial BEM ITB Swadharma Kabinet Arunikarya 2026">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -19,148 +23,209 @@
                     fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
                     animation: {
                         'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
                     }
                 }
             }
         }
     </script>
     <style>
-        .glass-nav { background: rgba(4, 47, 46, 0.95); backdrop-filter: blur(15px); }
+        .glass-nav { background: rgba(4, 47, 46, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
         .liquid-header {
-            background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%);
+            background: radial-gradient(circle at top right, #0f766e, #042f2e);
             position: relative;
             overflow: hidden;
         }
-        .logo-glow { box-shadow: 0 0 35px rgba(251, 191, 36, 0.3); }
+        .logo-glow { shadow: 0 0 50px rgba(251, 191, 36, 0.2); }
         .ring-rotate {
-            border: 2px dashed rgba(251, 191, 36, 0.5);
-            animation: spin 15s linear infinite;
+            border: 2px dashed rgba(251, 191, 36, 0.4);
+            animation: spin 20s linear infinite;
         }
         .blob {
             position: absolute;
-            background: rgba(251, 191, 36, 0.1);
-            filter: blur(60px);
+            background: rgba(251, 191, 36, 0.08);
+            filter: blur(80px);
             border-radius: 50%;
             z-index: 1;
         }
+        /* Custom Hover Card */
+        .member-card:hover .nim-tag { opacity: 1; transform: translateY(0); }
+        .nim-tag { opacity: 0; transform: translateY(10px); transition: all 0.4s ease; }
     </style>
 </head>
 <body class="bg-[#fcfdfd] text-slate-900 overflow-x-hidden font-sans">
 
-    <nav class="glass-nav fixed w-full z-[100] text-white border-b border-white/10">
+    <!-- NAVBAR -->
+    <nav class="glass-nav fixed w-full z-[100] text-white border-b border-white/5">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3 group">
+            <div class="flex items-center space-x-3 group cursor-pointer">
                 <div class="relative w-10 h-10 flex-shrink-0">
                     <div class="absolute inset-0 ring-rotate rounded-full"></div>
                     <img src="https://lh3.googleusercontent.com/d/1rQCklPuUH3xpJtUUpkchouNMu5j038UR" 
-                         class="w-full h-full object-contain rounded-full p-0.5 bg-aruni-dark border border-aruni-gold/30" 
+                         class="w-full h-full object-contain rounded-full p-0.5 bg-aruni-dark" 
                          alt="Logo Navbar">
                 </div>
                 <div class="block">
-                    <span class="font-black tracking-tighter text-sm md:text-lg block leading-none uppercase">KEMENDIKSOS</span>
+                    <span class="font-black tracking-tighter text-sm md:text-lg block leading-none uppercase group-hover:text-aruni-gold transition-colors">KEMENDIKSOS</span>
                     <span class="text-[7px] md:text-[8px] text-aruni-gold font-bold uppercase tracking-[0.1em] block leading-tight">BEM ITB Swadharma</span>
                 </div>
             </div>
 
-            <button class="md:hidden p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 text-[10px] font-black uppercase tracking-[0.2em]">
+                <a href="#staff" class="hover:text-aruni-gold transition-all relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-aruni-gold hover:after:w-full after:transition-all">Struktur</a>
+                <a href="transparansi.html" class="hover:text-aruni-gold transition-all relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-aruni-gold hover:after:w-full after:transition-all">Transparansi</a>
+                <a href="admin.html" class="bg-aruni-gold text-aruni-dark px-6 py-3 rounded-xl shadow-lg hover:bg-white hover:scale-105 active:scale-95 transition-all duration-300">Admin Panel</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden p-2" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Toggle Menu">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-aruni-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
-            
-            <div class="hidden md:flex items-center space-x-8 text-[10px] font-black uppercase tracking-widest">
-                <a href="#staff" class="hover:text-aruni-gold transition-colors">Struktur</a>
-                <a href="transparansi.html" class="hover:text-aruni-gold transition-colors">Transparansi</a>
-                <a href="admin.html" class="bg-aruni-gold text-aruni-dark px-6 py-3 rounded-xl shadow-lg hover:scale-105 active:scale-95 transition">Admin Panel</a>
-            </div>
         </div>
         
-        <div id="mobile-menu" class="hidden md:hidden bg-aruni-dark border-t border-white/10 p-4 space-y-4 text-center font-bold text-xs tracking-widest uppercase">
-            <a href="#staff" class="block py-2 text-white">Struktur</a>
-            <a href="transparansi.html" class="block py-2 text-white">Transparansi</a>
-            <a href="admin.html" class="block py-4 bg-aruni-gold text-aruni-dark rounded-xl">Admin Panel</a>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-aruni-dark/95 backdrop-blur-xl border-t border-white/10 p-6 space-y-4 text-center font-bold text-xs tracking-widest uppercase animate-fade-in">
+            <a href="#staff" class="block py-2 text-white hover:text-aruni-gold">Struktur</a>
+            <a href="transparansi.html" class="block py-2 text-white hover:text-aruni-gold">Transparansi</a>
+            <a href="admin.html" class="block py-4 bg-aruni-gold text-aruni-dark rounded-xl shadow-xl">Admin Panel</a>
         </div>
     </nav>
 
+    <!-- HEADER -->
     <header class="liquid-header pt-48 pb-24 md:pt-60 md:pb-40 px-6 text-white text-center">
-        <div class="blob w-72 h-72 -top-10 -right-10"></div>
+        <div class="blob w-72 h-72 -top-10 -right-10 animate-pulse"></div>
+        <div class="blob w-96 h-96 -bottom-20 -left-20 opacity-40"></div>
+        
         <div class="container mx-auto relative z-10">
-            <div class="relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-10">
+            <div class="relative w-32 h-32 md:w-44 md:h-44 mx-auto mb-10 animate-float">
                 <div class="absolute inset-0 border-4 border-dashed border-aruni-gold/40 rounded-full animate-spin-slow"></div>
                 <img src="https://lh3.googleusercontent.com/d/189L65t9T2Aq-v1stZNgbeh7VuL8ULb26" 
                      alt="Logo Utama" 
-                     class="relative z-10 w-full h-full object-contain rounded-full logo-glow bg-aruni-dark p-3">
+                     class="relative z-10 w-full h-full object-contain rounded-full logo-glow bg-aruni-dark p-4 shadow-2xl">
             </div>
 
-            <div class="inline-block border border-aruni-gold/30 bg-white/5 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
-                <span class="text-aruni-gold text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em]">Kementerian Pendidikan & Sosial</span>
+            <div class="inline-block border border-aruni-gold/30 bg-white/5 backdrop-blur-md px-6 py-2 rounded-full mb-6">
+                <span class="text-aruni-gold text-[8px] md:text-[10px] font-black uppercase tracking-[0.5em]">Kementerian Pendidikan & Sosial</span>
             </div>
-            <h1 class="text-3xl md:text-7xl font-black mb-6 leading-tight tracking-tighter uppercase">
+            <h1 class="text-4xl md:text-8xl font-black mb-6 leading-tight tracking-tighter uppercase">
                 Cahaya dari Proses <br>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-aruni-gold via-white to-aruni-gold italic font-medium">Terang dari Aksi</span>
             </h1>
-            <p class="text-slate-300 max-w-2xl mx-auto text-sm md:text-xl font-light leading-relaxed px-4">
-                Bergerak selaras dalam harmoni Arunikarya untuk menciptakan lembaga eksekutif mahasiswa yang berintegritas, inklusif, dan berdampak.
+            <p class="text-slate-300 max-w-2xl mx-auto text-sm md:text-lg font-light leading-relaxed px-4 opacity-80">
+                Bergerak selaras dalam harmoni Arunikarya untuk menciptakan lembaga eksekutif mahasiswa yang berintegritas, inklusif, dan berdampak bagi sesama.
             </p>
         </div>
     </header>
 
-    <section id="staff" class="container mx-auto -mt-12 md:-mt-20 px-4 md:px-6 relative z-20 mb-20">
-        <div class="bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl p-6 md:p-12 border border-slate-100">
+    <!-- SECTION STRUKTUR -->
+    <section id="staff" class="container mx-auto -mt-12 md:-mt-20 px-4 md:px-6 relative z-20 mb-32">
+        <div class="bg-white rounded-[2.5rem] md:rounded-[3.5rem] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.1)] p-8 md:p-16 border border-slate-50">
             
-            <div class="text-center mb-16">
-                <h2 class="text-aruni-teal text-[10px] font-black tracking-[0.4em] uppercase mb-2">Struktur</h2>
-                <h3 class="text-3xl md:text-5xl font-extrabold text-aruni-dark tracking-tighter uppercase">Anggota Kemendiksos</h3>
-                <div class="h-1.5 w-16 bg-aruni-gold mx-auto mt-4 rounded-full"></div>
+            <div class="text-center mb-20">
+                <h2 class="text-aruni-teal text-[10px] font-black tracking-[0.5em] uppercase mb-3">Struktur</h2>
+                <h3 class="text-3xl md:text-6xl font-extrabold text-aruni-dark tracking-tighter uppercase">Divisi Kemendiksos</h3>
+                <div class="h-1.5 w-20 bg-aruni-gold mx-auto mt-6 rounded-full"></div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto mb-16">
-                <div class="bg-slate-50 rounded-[2.5rem] p-8 text-center border border-slate-100 hover:shadow-xl transition-all group">
-                    <div class="w-32 h-32 md:w-44 md:h-44 mx-auto mb-6 rounded-full overflow-hidden shadow-xl border-4 border-white transition-transform group-hover:scale-105">
-                        <img src="https://lh3.googleusercontent.com/d/1dJ7bl9TryJHE1njI-Emm5TFK7oW2FrL7" class="w-full h-full object-cover" alt="Adam Fikra Muchlis">
+            <!-- Pimpinan: Kamentri & Wakamentri -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 md:gap-16 max-w-5xl mx-auto mb-20">
+                <!-- Kepala Menteri -->
+                <div class="member-card bg-slate-50/50 rounded-[3rem] p-10 text-center border border-slate-100 hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="relative w-40 h-40 md:w-52 md:h-52 mx-auto mb-8">
+                        <div class="absolute inset-0 bg-aruni-teal/10 rounded-full scale-110 group-hover:scale-125 transition-transform duration-500"></div>
+                        <div class="relative w-full h-full rounded-full overflow-hidden shadow-2xl border-4 border-white z-10">
+                            <img src="https://lh3.googleusercontent.com/d/1dJ7bl9TryJHE1njI-Emm5TFK7oW2FrL7" class="w-full h-full object-cover" alt="Adam Fikra Muchlis">
+                        </div>
                     </div>
-                    <h3 class="font-black text-lg md:text-xl text-aruni-dark uppercase">Adam Fikra Muchlis</h3>
-                    <p class="text-[9px] font-black text-aruni-teal uppercase tracking-widest mt-2 px-3 py-1 bg-aruni-teal/5 rounded-full inline-block border border-aruni-teal/10">Kepala Menteri</p>
+                    <h3 class="font-black text-xl md:text-2xl text-aruni-dark uppercase tracking-tighter">Adam Fikra Muchlis</h3>
+                    <div class="nim-tag mt-1">
+                        <span class="text-[11px] font-bold text-slate-400">NIM : 241211018</span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-[10px] font-black text-white uppercase tracking-widest px-5 py-2 bg-aruni-teal rounded-full inline-block shadow-lg shadow-aruni-teal/30">Kepala Menteri</p>
+                    </div>
                 </div>
 
-                <div class="bg-slate-50 rounded-[2.5rem] p-8 text-center border border-slate-100 hover:shadow-xl transition-all group">
-                    <div class="w-32 h-32 md:w-44 md:h-44 mx-auto mb-6 rounded-full overflow-hidden shadow-xl border-4 border-white transition-transform group-hover:scale-105">
-                        <img src="https://lh3.googleusercontent.com/d/1H-VCrbpQU5-KvleFTNORkE6tGJ521TsN" class="w-full h-full object-cover" alt="Andini Olivia">
+                <!-- Wakil Kepala Menteri -->
+                <div class="member-card bg-slate-50/50 rounded-[3rem] p-10 text-center border border-slate-100 hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group">
+                    <div class="relative w-40 h-40 md:w-52 md:h-52 mx-auto mb-8">
+                        <div class="absolute inset-0 bg-aruni-red/10 rounded-full scale-110 group-hover:scale-125 transition-transform duration-500"></div>
+                        <div class="relative w-full h-full rounded-full overflow-hidden shadow-2xl border-4 border-white z-10">
+                            <img src="https://lh3.googleusercontent.com/d/1UI_m2uIIyq3ecHS435EpNoE4E9KvgPPJ" class="w-full h-full object-cover" alt="Azahra Balqis">
+                        </div>
                     </div>
-                    <h3 class="font-black text-lg md:text-xl text-aruni-dark uppercase">Andini Olivia</h3>
-                    <p class="text-[9px] font-black text-aruni-red uppercase tracking-widest mt-2 px-3 py-1 bg-aruni-red/5 rounded-full inline-block border border-aruni-red/10">Wakil Kepala Menteri</p>
+                    <h3 class="font-black text-xl md:text-2xl text-aruni-dark uppercase tracking-tighter">Azahra Balqis</h3>
+                    <div class="nim-tag mt-1">
+                        <span class="text-[11px] font-bold text-slate-400">NIM : 241111015</span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-[10px] font-black text-white uppercase tracking-widest px-5 py-2 bg-aruni-red rounded-full inline-block shadow-lg shadow-aruni-red/30">Wakil Kepala Menteri</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                <div class="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm flex items-center space-x-6 hover:shadow-md transition group">
-                    <div class="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden shadow-md border-2 border-aruni-teal/20 group-hover:border-aruni-teal transition-colors">
-                        <img src="https://lh3.googleusercontent.com/d/1uHDzw577_KKnY620PcS5_00N9Resvaag" class="w-full h-full object-cover" alt="Jenni Alya">
+            <!-- Jajaran Direktur (TBA) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto opacity-60">
+                <div class="bg-white p-6 rounded-3xl border border-dashed border-slate-200 flex items-center space-x-6">
+                    <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center border-2 border-white shadow-inner">
+                        <svg class="w-8 h-8 text-slate-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
                     </div>
                     <div>
-                        <span class="text-[8px] font-black text-aruni-teal uppercase tracking-widest block mb-1">Dir. Lingkungan</span>
-                        <h3 class="font-bold text-base md:text-lg text-aruni-dark uppercase">Jenni Alya</h3>
+                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Dir. Lingkungan</span>
+                        <h3 class="font-bold text-lg text-slate-300 uppercase italic">To Be Announced</h3>
                     </div>
                 </div>
-
-                <div class="bg-white p-5 rounded-[2rem] border border-slate-100 shadow-sm flex items-center space-x-6 hover:shadow-md transition group">
-                    <div class="w-20 h-20 flex-shrink-0 rounded-full overflow-hidden shadow-md border-2 border-aruni-gold/20 group-hover:border-aruni-gold transition-colors">
-                        <img src="https://lh3.googleusercontent.com/d/1UI_m2uIIyq3ecHS435EpNoE4E9KvgPPJ" class="w-full h-full object-cover" alt="Azahra Balqis">
+                <div class="bg-white p-6 rounded-3xl border border-dashed border-slate-200 flex items-center space-x-6">
+                    <div class="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center border-2 border-white shadow-inner">
+                        <svg class="w-8 h-8 text-slate-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
                     </div>
                     <div>
-                        <span class="text-[8px] font-black text-aruni-gold uppercase tracking-widest block mb-1">Dir. Pendidikan</span>
-                        <h3 class="font-bold text-base md:text-lg text-aruni-dark uppercase">Azahra Balqis</h3>
+                        <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Dir. Pendidikan</span>
+                        <h3 class="font-bold text-lg text-slate-300 uppercase italic">To Be Announced</h3>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-slate-50 border-t border-slate-200 py-16 text-center">
-        <div class="container mx-auto px-6">
-            <p class="font-black text-aruni-dark tracking-widest text-lg mb-2 uppercase">ARUNIKARYA 2026</p>
-            <p class="text-aruni-teal/60 text-[9px] font-bold uppercase tracking-[0.4em] mb-8">BEM ITB Swadharma</p>
-            <p class="text-slate-400 text-[10px] italic">"Cahaya dari Proses, Terang dari Aksi."</p>
+  <!-- FOOTER -->
+    <!-- Menambahkan overflow-hidden untuk mencegah kebocoran layout akibat blob dekorasi -->
+    <footer class="bg-aruni-dark py-20 text-center text-white relative overflow-hidden">
+        <!-- Dekorasi Blob (Latar Belakang) -->
+        <div class="blob w-64 h-64 -top-32 -left-32 opacity-10"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <h4 class="font-black tracking-[0.4em] text-lg md:text-xl mb-4 uppercase">ARUNIKARYA 2026</h4>
+            <div class="w-16 h-1 bg-aruni-gold mx-auto mb-6"></div>
+            <p class="text-aruni-gold/60 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.5em] mb-12">
+                Kabinet Transformasi Swadharma
+            </p>
+            
+            <div class="flex justify-center mb-12">
+                <!-- Instagram Link: Langsung ke profil BEM Swadharma -->
+                <a href="https://www.instagram.com/bem_swadharma" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center hover:bg-aruni-gold hover:text-aruni-dark transition-all duration-300 group shadow-lg"
+                   title="Kunjungi Instagram Kami">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <p class="text-slate-500 text-[10px] italic font-light tracking-widest px-4">
+                "Cahaya Dari Proses, Terang Dari Aksi."
+            </p>
         </div>
     </footer>
 
