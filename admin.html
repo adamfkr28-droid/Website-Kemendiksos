@@ -10,7 +10,6 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         .bg-gradient-pro { background: linear-gradient(135deg, #042f2e 0%, #0f766e 100%); }
-        /* Animasi loading sederhana */
         .loader { border-top-color: #3498db; animation: spinner 1.5s linear infinite; }
         @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
@@ -28,9 +27,10 @@
                 <p class="text-slate-400 text-sm">Masuk untuk mengelola transparansi data</p>
             </div>
             <form id="form-login" class="space-y-5">
-                <input type="text" id="username" placeholder="Username" class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 outline-none transition-all" required>
+                <!-- Diubah menjadi input email agar sesuai Supabase Auth -->
+                <input type="email" id="email" placeholder="Email Admin (contoh: admin@kemendiksos.com)" class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 outline-none transition-all" required>
                 <input type="password" id="password" placeholder="Password" class="w-full px-6 py-4 rounded-2xl border border-slate-200 focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500 outline-none transition-all" required>
-                <button type="submit" class="w-full bg-teal-700 text-white font-bold py-4 rounded-2xl hover:bg-teal-800 transform active:scale-[0.98] transition-all shadow-lg shadow-teal-700/20">
+                <button type="submit" id="btn-login" class="w-full bg-teal-700 text-white font-bold py-4 rounded-2xl hover:bg-teal-800 transform active:scale-[0.98] transition-all shadow-lg shadow-teal-700/20">
                     Masuk ke Sistem
                 </button>
             </form>
@@ -44,7 +44,7 @@
                 <h1 class="text-4xl font-black text-slate-900 tracking-tight">Dashboard <span class="text-teal-600">Admin</span></h1>
                 <p class="text-slate-500">Kelola distribusi bantuan dan transparansi program.</p>
             </div>
-            <button onclick="location.reload()" class="px-6 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 transition-all">Logout</button>
+            <button onclick="logoutAdmin()" class="px-6 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 transition-all">Logout</button>
         </header>
 
         <div class="grid lg:grid-cols-12 gap-10">
@@ -134,22 +134,53 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZxa3FrZnRocGN2b2RncWNtam5oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NjI1NDAsImV4cCI6MjA5NDEzODU0MH0.zFsrt80xCpaVMN9HlZaix8icdVLTslzGb_0j8zfjyic';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // 2. AUTH
-        document.getElementById('form-login').addEventListener('submit', (e) => {
+        // Cek sesi saat halaman dimuat
+        checkSession();
+
+        async function checkSession() {
+            const { data: { session } } = await _supabase.auth.getSession();
+            if (session) {
+                showAdminPanel();
+            }
+        }
+
+        function showAdminPanel() {
+            document.getElementById('login-section').style.display = 'none';
+            const panel = document.getElementById('admin-panel');
+            panel.classList.remove('hidden');
+            panel.classList.add('block');
+            fetchData();
+        }
+
+        // 2. AUTH (Supabase Auth Login)
+        document.getElementById('form-login').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
-            
-            if(u === "admin" && p === "arunikarya2026") {
-                document.getElementById('login-section').style.display = 'none';
-                const panel = document.getElementById('admin-panel');
-                panel.classList.remove('hidden');
-                panel.classList.add('block');
-                fetchData();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btnLogin = document.getElementById('btn-login');
+
+            btnLogin.disabled = true;
+            btnLogin.innerText = "Memproses...";
+
+            const { data, error } = await _supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            btnLogin.disabled = false;
+            btnLogin.innerText = "Masuk ke Sistem";
+
+            if (error) {
+                alert("❌ Login Gagal: " + error.message);
             } else {
-                alert("❌ Akses Ditolak! Kredensial tidak valid.");
+                showAdminPanel();
             }
         });
+
+        async function logoutAdmin() {
+            await _supabase.auth.signOut();
+            location.reload();
+        }
 
         // 3. FETCH DATA
         async function fetchData() {
